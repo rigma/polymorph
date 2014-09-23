@@ -3,7 +3,7 @@
 
 #include <type/monomial.h>
 
-monomial_t *monomial_init(complex_t *coef, unsigned long pow)
+monomial_t *monomial_init(complex_t *coef, unsigned long degree)
 {
 	monomial_t *m = NULL;
 
@@ -15,7 +15,7 @@ monomial_t *monomial_init(complex_t *coef, unsigned long pow)
 		return NULL;
 
 	m->coef = coef;
-	m->pow = pow;
+	m->degree = degree;
 	m->previous = NULL;
 	m->next = NULL;
 
@@ -30,5 +30,5 @@ void monomial_free(monomial_t *m)
 
 complex_t *monomial_eval(monomial_t *m, double x)
 {
-	return complex_scalarProd(pow(x, (double) m->pow), m->coef);
+	return complex_scalarProd(pow(x, (double) m->degree), m->coef);
 }

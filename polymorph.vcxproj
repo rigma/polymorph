@@ -13,11 +13,15 @@
   <ItemGroup>
     <ClInclude Include="include\type\complex.h" />
     <ClInclude Include="include\type\monomial.h" />
+    <ClInclude Include="include\type\polymorph.h" />
+    <ClInclude Include="include\type\polynomial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="src\type\complex.c" />
     <ClCompile Include="src\type\monomial.c" />
+    <ClCompile Include="src\type\polymorph.c" />
+    <ClCompile Include="src\type\polynomial.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{ECDD0D44-7417-4296-8F0A-CCAC2ADDE24A}</ProjectGuid>
@@ -48,14 +52,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\build\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\</OutDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\include</IncludePath>
     <SourcePath>$(VC_SourcePath);$(SolutionDir)\src</SourcePath>
+    <IntDir>$(SolutionDir)obj\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\build\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)build\$(Configuration)\</OutDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)\include</IncludePath>
     <SourcePath>$(VC_SourcePath);$(SolutionDir)\src</SourcePath>
+    <IntDir>$(SolutionDir)obj\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

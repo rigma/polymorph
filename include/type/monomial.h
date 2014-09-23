@@ -9,7 +9,7 @@
  * @brief  Représente un monôme en mémoire
  */
 typedef struct monomial_t {
-	unsigned long pow;
+	unsigned long degree;
 	complex_t *coef;
 	struct monomial_t *previous;
 	struct monomial_t *next;
@@ -20,10 +20,10 @@ typedef struct monomial_t {
  * @author Romain Failla
  * @brief  Initialise une structure monomial_t en mémoire
  * @param  complex_t *coef : le coefficient du monôme
- * @param  unsigned long pow : le degré du monôme
+ * @param  unsigned long degree : le degré du monôme
  * @return monomial_t* : l'adresse du nouveau monôme
  */
-monomial_t *monomial_init(complex_t *coef, unsigned long pow);
+monomial_t *monomial_init(complex_t *coef, unsigned long degree);
 
 /**
  * @fn     monomial_free(monomial_t *m)
