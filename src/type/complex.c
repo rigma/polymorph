@@ -28,8 +28,19 @@ complex_t *complex_conj(complex_t *z)
 	return complex_init(z->re, -1.0 * z->im);
 }
 
+char complex_compare(complex_t *a, complex_t *b)
+{
+	// Mesure de sécurité
+	if (a == NULL || b == NULL)
+		return 0;
+
+	// Si les parties réelles et imaginaires sont égales, on renvoit vrai
+	return (a->re == b->re && a->im == b->im) ? 1 : 0;
+}
+
 complex_t *complex_sum(complex_t *a, complex_t *b)
 {
+	// Mesure de sécurité
 	if (a == NULL || b == NULL)
 		return NULL;
 
@@ -39,6 +50,7 @@ complex_t *complex_sum(complex_t *a, complex_t *b)
 
 complex_t *complex_diff(complex_t *a, complex_t *b)
 {
+	// Mesure de sécurité
 	if (a == NULL || b == NULL)
 		return NULL;
 
@@ -48,6 +60,7 @@ complex_t *complex_diff(complex_t *a, complex_t *b)
 
 complex_t *complex_scalarProd(double k, complex_t *z)
 {
+	// Mesure de sécurité
 	if (z == NULL)
 		return NULL;
 
@@ -57,6 +70,7 @@ complex_t *complex_scalarProd(double k, complex_t *z)
 
 complex_t *complex_prod(complex_t *a, complex_t *b)
 {
+	// Mesure de sécurité
 	if (a == NULL || b == NULL)
 		return NULL;
 
@@ -66,6 +80,7 @@ complex_t *complex_prod(complex_t *a, complex_t *b)
 
 complex_t *complex_scalarDiv(complex_t *z, double k)
 {
+	// Mesure de sécurité
 	if (z == NULL || k == 0.0)
 		return NULL;
 
@@ -77,6 +92,7 @@ complex_t *complex_div(complex_t *a, complex_t *b)
 {
 	double denom = 0.0;
 
+	// Mesure de sécurité
 	if (a == NULL || b == NULL || (b->re == 0.0 && b->im == 0.0))
 		return NULL;
 

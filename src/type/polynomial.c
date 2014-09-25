@@ -22,6 +22,7 @@ polynomial_t *polynomial_init(const char *name)
 	// On initialise les autres champs
 	p->degree = 0;
 	p->size = 0;
+	p->pow = 1;
 	p->first = NULL;
 	p->last = NULL;
 	p->previous = NULL;

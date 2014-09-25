@@ -40,6 +40,16 @@ void complex_free(complex_t *z);
 complex_t *complex_conj(complex_t *z);
 
 /**
+ * @fn     complex_compare(complex_t *a, complex_t *b)
+ * @author Romain Failla
+ * @brief  Vérifie si a = b
+ * @param  complex_t *a : l'adresse du premier nombre comparé
+ * @param  complex_t *b : l'adresse du second nombre comparé
+ * @return char : le résultat de la comparaison
+ */
+char complex_compare(complex_t *a, complex_t *b);
+
+/**
  * @fn     complex_sum(complex_t *a, complex_t *b)
  * @author Romain Failla
  * @brief  Effectue a + b

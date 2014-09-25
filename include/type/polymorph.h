@@ -3,6 +3,8 @@
 
 #include "polynomial.h"
 
+// TODO : rajouter les autres fonctions rattachées à la gestion des structures polymorph_t
+
 /**
  * @struct polymorph_t
  * @author Romain Failla
@@ -31,5 +33,23 @@ polymorph_t *polymorph_init(const char *name);
  * @param  polymorph_t *p : l'adresse du polynôme factorisé à libérer
  */
 void polymorph_free(polymorph_t *p);
+
+/**
+ * @fn     polymorph_append(polymorph_t *p, complex_t *root)
+ * @author Romain Failla
+ * @brief  Ajoute une nouvelle racine au polynôme
+ * @param  polymorph_t *p : le polynôme de destination
+ * @param  complex_t *root : la valeur de la racine
+ */
+void polymorph_append(polymorph_t *p, complex_t *root);
+
+/**
+ * @fn     polymorph_remove(polymorph_t *p, complex_t *root)
+ * @author Romain Failla
+ * @brief  Enlève toutes les racines désignés du polynôme
+ * @param  polymorph_t *p : le polynôme de travail
+ * @param  complex_t *root : la racine a enlevé
+ */
+void polymorph_remove(polymorph_t *p, complex_t *root);
 
 #endif

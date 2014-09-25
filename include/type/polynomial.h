@@ -11,6 +11,7 @@
 typedef struct polynomial_t {
 	unsigned long degree;
 	unsigned long size;
+	unsigned long pow;
 	char *name;
 	monomial_t *first;
 	monomial_t *last;
