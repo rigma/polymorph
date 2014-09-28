@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\arithmetic.h" />
     <ClInclude Include="include\type\complex.h" />
     <ClInclude Include="include\type\monomial.h" />
     <ClInclude Include="include\type\polymorph.h" />
@@ -18,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="src\arithmetic.c" />
     <ClCompile Include="src\type\complex.c" />
     <ClCompile Include="src\type\monomial.c" />
     <ClCompile Include="src\type\polymorph.c" />

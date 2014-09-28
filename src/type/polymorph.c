@@ -136,7 +136,7 @@ void polymorph_remove(polymorph_t *p, complex_t *root)
 		p->last = element->previous;
 
 	// On libère l'élément de la mémoire et on décrémente la taille
-	polymorph_free(element);
+	polynomial_free(element);
 	p->size--;
 
 	// Au cas où
