@@ -33,4 +33,14 @@ polynomial_t *polynomial_diff(polynomial_t *p, polynomial_t *q);
  */
 polynomial_t *polynomial_scalarProduct(complex_t *k, polynomial_t *p);
 
+/**
+ * @fn     polynomial_prod(polynomial_t *p, polynomial_t *q)
+ * @author Etienne Quelain
+ * @brief  Réalise p * q
+ * @param  polynomial_t *p : le premier polynôme du produit
+ * @param  polynomial_t *q : le second polynôme du produit
+ * @return polynomial_t* : l'adresse du résultat
+ */
+polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q);
+
 #endif
