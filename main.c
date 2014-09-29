@@ -1,18 +1,27 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <type/monomial.h>
+#include <io/buffer.h>
 
 int main(int argc, char **argv)
 {
-	monomial_t *m = monomial_init(complex_init(1.0, 0.0), 2);
-	complex_t *z = monomial_eval(m, 2.0);
+	char *str = (char*) NULL;
+	buffer_t *buffer = buffer_init(0);
 
-	printf("Hello world !\n");
-	printf("2 ^ 2 = %lf\n", z->re);
+	buffer_read(buffer, 0, "Saississez un mot : ");
+	buffer_read(buffer, 0, "Saississez encore un mot : ");
 
-	monomial_free(m);
-	complex_free(z);
+	str = buffer_get(buffer);
+	printf("Vous avez saisi : %s\n", str);
+	free(str);
+
+	str = buffer_get(buffer);
+	printf("Ensuite, vous avez saisi : %s\n", str);
+
+	buffer_free(buffer);
+	free(str);
+
+	system("pause");
 
 	return EXIT_SUCCESS;
 }
