@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 
 #include <type/monomial.h>
@@ -26,6 +27,23 @@ void monomial_free(monomial_t *m)
 {
 	complex_free(m->coef);
 	free(m);
+}
+
+void monomial_display(monomial_t *m)
+{
+	char *z = NULL;
+
+	if (m == NULL)
+		return;
+
+	z = complex_display(m->coef, 0);
+
+	if (m->degree > 0)
+		printf("(%s) * X ^ %lu", z, m->degree);
+	else
+		printf("%s", z);
+
+	free(z);
 }
 
 complex_t *monomial_eval(monomial_t *m, double x)

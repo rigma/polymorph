@@ -156,13 +156,13 @@ char *buffer_get(buffer_t *b)
 
 		if (b->size > 0)
 		{
-			tmp = (char**)realloc(b->buffer, b->size * sizeof(char*));
+			tmp = (char**) realloc(b->buffer, b->size * sizeof(char*));
 			if (tmp == NULL)
 			{
 				b->size = size;
 				b->buffer[b->size - 1] = str;
 
-				return (char*)NULL;
+				return (char*) NULL;
 			}
 
 			b->buffer = tmp;

@@ -34,6 +34,14 @@ monomial_t *monomial_init(complex_t *coef, unsigned long degree);
 void monomial_free(monomial_t *m);
 
 /**
+ * @fn     monomial_display(monomial_t *m)
+ * @author Romain Failla
+ * @brief  Affiche un monôme
+ * @param  monomial_t *m : l'adresse du monôme à afficher
+ */
+void monomial_display(monomial_t *m);
+
+/**
  * @fn     monomial_eval(monomial_t *m, double x)
  * @author Romain Failla
  * @brief  Renvoie le résultat complexe de l'évaluation en x du monôme

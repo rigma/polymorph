@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 #include <type/polynomial.h>
@@ -54,6 +55,87 @@ void polynomial_free(polynomial_t *p)
 	// Et on libère le reste de la mémoire
 	free(p->name);
 	free(p);
+}
+
+void polynomial_display(polynomial_t *p)
+{
+	monomial_t *iterator = NULL;
+
+	if (p == NULL)
+		return;
+
+	if (p->name != NULL)
+		fprintf(stdin, "%s(X) = ", p->name);
+
+	for (iterator = p->first ; iterator != NULL ; iterator = iterator->next)
+	{
+		monomial_display(iterator);
+		
+		if (iterator->next != NULL)
+			printf(" + ");
+		else
+			printf("\n");
+	}
+}
+
+complex_t *polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval)
+{
+	complex_t *result = NULL, *tmp = NULL;
+
+	if (coef == NULL || m == NULL || eval == NULL)
+		return NULL;
+
+	result = complex_prod(coef, eval);
+	if (result == NULL)
+		return NULL;
+
+	tmp = complex_sum(result, m->coef);
+	if (tmp == NULL)
+	{
+		complex_free(result);
+
+		return NULL;
+	}
+	
+	complex_free(result);
+	result = tmp;
+
+	if (m->next != NULL)
+	{
+		result = polynomial_eval(tmp, m->next, eval);
+
+		complex_free(tmp);
+	}
+
+	return result;
+}
+
+polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end)
+{
+	polynomial_t *q = NULL;
+	monomial_t *iterator = NULL;
+	unsigned long i = 0;
+
+	if (p == NULL)
+		return NULL;
+
+	q = polynomial_init(NULL);
+	if (q == NULL)
+		return NULL;
+
+	for (i = p->degree, iterator = p->first ; i >= end && iterator != NULL ; i--, iterator = iterator->next)
+	{
+		if (degree >= iterator->degree && iterator->degree >= end)
+			polynomial_append(q, iterator->coef, iterator->degree);
+	}
+
+	if (q->size == 0)
+	{
+		polynomial_free(q);
+		q = NULL;
+	}
+
+	return q;
 }
 
 void polynomial_append(polynomial_t *p, complex_t *coef, unsigned long degree)

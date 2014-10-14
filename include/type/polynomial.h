@@ -37,6 +37,36 @@ polynomial_t *polynomial_init(const char *name);
 void polynomial_free(polynomial_t *p);
 
 /**
+ * @fn     polynomial_display(polynomial_t *p)
+ * @author Romain Failla
+ * @brief  Affiche le polynôme p
+ * @param  polynomial_t *p : l'adresse du polynôme à afficher
+ */
+void polynomial_display(polynomial_t *p);
+
+/**
+ * @fn     polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval)
+ * @author Romain Failla
+ * @brief  Réalise l'évaluation d'un polynôme sous forme développée en eval
+ * @param  complex_t *coef : l'adresse du coefficient de l'évaluation
+ * @param  monomial_t *m : l'adresse du monôme courant du polynôme
+ * @param  complex_t *eval : la valeur de l'évaluation
+ * @return complex_t*
+ */
+complex_t *polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval);
+
+/**
+ * @fn     polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end)
+ * @author Romain Failla
+ * @brief  Extrait les monômes du degré degree jusqu'au degré end du polynôme sélectionné
+ * @param  polynomial_t *p : l'adresse du polynôme d'extraction
+ * @param unsigned long degree : le degré de départ de l'extraction
+ * @param unsigned long end : le degré d'arrivé de l'extraction
+ * @return polynomial_t* 
+ */
+polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end);
+
+/**
  * @fn     polynomial_append(polynomial_t *p, complex_t *coef, unsigned long degree)
  * @author Romain Failla
  * @brief  Ajoute un nouveau monôme au polynôme sélectionné

@@ -1,6 +1,8 @@
 #ifndef BUFFER_H
 #define BUFFER_H
 
+#define HISTORY 256
+
 #include <stdlib.h>
 
 /**

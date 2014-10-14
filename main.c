@@ -1,25 +1,33 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <io/buffer.h>
+#include <type/polynomial.h>
+#include <arithmetic.h>
 
 int main(int argc, char **argv)
 {
-	char *str = (char*) NULL;
-	buffer_t *buffer = buffer_init(0);
+	polynomial_t *p = NULL, *q = NULL, *r = NULL;
 
-	buffer_read(buffer, 0, "Saississez un mot : ");
-	buffer_read(buffer, 0, "Saississez encore un mot : ");
+	p = polynomial_init("p");
+	q = polynomial_init("q");
 
-	str = buffer_get(buffer);
-	printf("Vous avez saisi : %s\n", str);
-	free(str);
+	polynomial_append(p, complex_init(3.0, 0.0), 2);
+	polynomial_append(p, complex_init(2.0, 0.0), 1);
+	polynomial_append(p, complex_init(1.0, 0.0), 0);
 
-	str = buffer_get(buffer);
-	printf("Ensuite, vous avez saisi : %s\n", str);
+	polynomial_append(q, complex_init(9.0, 0.0), 2);
+	polynomial_append(q, complex_init(4.0, 0.0), 1);
+	polynomial_append(q, complex_init(1.0, 0.0), 0);
 
-	buffer_free(buffer);
-	free(str);
+	polynomial_display(p);
+	polynomial_display(q);
+
+	r = polynomial_prod(p, q);
+	polynomial_display(r);
+
+	polynomial_free(p);
+	polynomial_free(q);
+	polynomial_free(r);
 
 	system("pause");
 

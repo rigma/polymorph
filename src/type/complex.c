@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include <math.h>
 
 #include <type/complex.h>
@@ -21,6 +23,25 @@ complex_t *complex_init(double re, double im)
 void complex_free(complex_t *z)
 {
 	free(z);
+}
+
+char *complex_display(complex_t *z, unsigned int precision)
+{
+	char tmp[512] = { 0 };
+	char *str = NULL;
+
+	if (z == NULL)
+		return NULL;
+	
+	if (precision > 0)
+		sprintf(tmp, "%.*lf + i %.*lf", precision, z->re, precision, z->im);
+	else
+		sprintf(tmp, "%.2lf + i %.2lf", z->re, z->im);
+
+	str = (char*) malloc((strlen(tmp) + 1) * sizeof(char));
+	strcpy(str, tmp);
+
+	return str;
 }
 
 complex_t *complex_conj(complex_t *z)

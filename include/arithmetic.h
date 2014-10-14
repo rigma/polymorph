@@ -35,7 +35,7 @@ polynomial_t *polynomial_scalarProduct(complex_t *k, polynomial_t *p);
 
 /**
  * @fn     polynomial_prod(polynomial_t *p, polynomial_t *q)
- * @author Etienne Quelain
+ * @author Romain Failla | Etienne Quelain
  * @brief  Réalise p * q
  * @param  polynomial_t *p : le premier polynôme du produit
  * @param  polynomial_t *q : le second polynôme du produit

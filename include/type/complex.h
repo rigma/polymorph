@@ -31,7 +31,17 @@ complex_t *complex_init(double re, double im);
 void complex_free(complex_t *z);
 
 /**
- * @fn    complex_conj(complex_t *z)
+ * @fn     complex_display(complex_t *z)
+ * @brief  Renvoi une chaîne de caractère représentant le nombre complexe
+ * @author Romain Failla
+ * @param  complex_t *z : l'adresse du nombre complexe à afficher
+ * @param  unsigned int precision : la précision de l'écriture (mettre à 0 pour la valeur par défaut)
+ * @return char*
+ */
+char *complex_display(complex_t *z, unsigned int precision);
+
+/**
+ * @fn     complex_conj(complex_t *z)
  * @brief  Renvoi l'adresse du conjugué de z qui est alloué en mémoire
  * @author Romain Failla
  * @param  complex_t *z : l'adresse du nombre complexe traité
