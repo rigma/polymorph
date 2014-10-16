@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -30,8 +31,33 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="include" />
 		</Compiler>
+		<Unit filename="include/arithmetic.h" />
+		<Unit filename="include/io/buffer.h" />
+		<Unit filename="include/type/complex.h" />
+		<Unit filename="include/type/monomial.h" />
+		<Unit filename="include/type/polymorph.h" />
+		<Unit filename="include/type/polynomial.h" />
 		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/arithmetic.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/io/buffer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/type/complex.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/type/monomial.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/type/polymorph.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/type/polynomial.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
