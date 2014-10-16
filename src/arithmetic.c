@@ -32,7 +32,15 @@ polynomial_t *polynomial_sum(polynomial_t *p, polynomial_t *q)
 			// Si les monômes sont de même degré, on additionne les coefficients et on les ajoute au résultat
 			if (a->degree == b->degree)
 			{
-				polynomial_append(r, complex_sum(a->coef, b->coef), a->degree);
+				z = complex_sum(a->coef, b->coef);
+				if (z == NULL)
+				{
+					polynomial_free(r);
+
+					return NULL;
+				}
+
+				polynomial_append(r, z, a->degree);
 				a = a->next;
 				b = b->next;
 			}
