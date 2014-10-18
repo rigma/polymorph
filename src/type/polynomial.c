@@ -70,7 +70,7 @@ void polynomial_display(polynomial_t *p)
 	for (iterator = p->first ; iterator != NULL ; iterator = iterator->next)
 	{
 		monomial_display(iterator);
-		
+
 		if (iterator->next != NULL)
 			printf(" + ");
 		else
@@ -96,7 +96,7 @@ complex_t *polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval)
 
 		return NULL;
 	}
-	
+
 	complex_free(result);
 	result = tmp;
 
@@ -169,7 +169,7 @@ void polynomial_insert(polynomial_t *p, monomial_t *m)
 	while (current != NULL && m->degree < current->degree)
 		current = current->next;
 
-	
+
 	// S'il n'y a pas d'éléments dans la liste
 	if (current == NULL && p->first == NULL && p->last == NULL)
 	{
@@ -194,7 +194,7 @@ void polynomial_insert(polynomial_t *p, monomial_t *m)
 
 		complex_free(current->coef);
 		current->coef = tmp;
-		
+
 		// Et on libère le monôme à insérer pour n'en garder qu'un
 		monomial_free(m);
 	}
@@ -264,4 +264,28 @@ void polynomial_remove(polynomial_t *p, unsigned long degree)
 	// On libère le monôme de la mémoire et on décrémente la taille du polynôme
 	monomial_free(current);
 	p->size--;
+}
+
+
+void polynomial_reduce(polynomial_t *p, unsigned long n)
+{
+    monomial_t *iterator = NULL;
+
+    if (p == NULL || p->degree < n)
+        return;
+
+     for (iterator = p->first ; iterator != NULL ; iterator = iterator->next)
+        iterator->degree -= n;
+ }
+
+
+ void polynomial_increase(polynomial_t *p, unsigned long n)
+{
+    monomial_t *iterator = NULL;
+
+    if (p == NULL)
+        return;
+
+     for (iterator = p->first ; iterator != NULL ; iterator = iterator->next)
+        iterator->degree += n;
 }

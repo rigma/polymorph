@@ -32,17 +32,36 @@ char *complex_display(complex_t *z, unsigned int precision)
 
 	if (z == NULL)
 		return NULL;
-	
+
 	if (precision > 0)
-		sprintf(tmp, "%.*lf + i %.*lf", precision, z->re, precision, z->im);
-	else
-		sprintf(tmp, "%.2lf + i %.2lf", z->re, z->im);
+	{
+	    if (z->re == 0)
+            sprintf(tmp, "i %.*lf", precision, z->im);
+        else if (z->im == 0)
+            sprintf(tmp, "%.*lf", precision, z->re);
+        else if (z->im == 0 && z->re == 0);
+        else
+            sprintf(tmp, "%.*lf + i %.*lf", precision, z->re, precision, z->im);
+	}
+    else
+    {
+        if (z->re == 0)
+            sprintf(tmp, "i %.2lf", z->im);
+        else if (z->im == 0)
+            sprintf(tmp, "%.2lf", z->re);
+        else if (z->im == 0 && z->re == 0);
+        else
+            sprintf(tmp, "%.2lf + i %.2lf", z->re, z->im);
+    }
+
 
 	str = (char*) malloc((strlen(tmp) + 1) * sizeof(char));
 	strcpy(str, tmp);
 
 	return str;
 }
+
+
 
 complex_t *complex_conj(complex_t *z)
 {

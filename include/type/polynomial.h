@@ -56,15 +56,31 @@ void polynomial_display(polynomial_t *p);
 complex_t *polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval);
 
 /**
- * @fn     polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end)
- * @author Romain Failla
- * @brief  Extrait les monômes du degré degree jusqu'au degré end du polynôme sélectionné
- * @param  polynomial_t *p : l'adresse du polynôme d'extraction
- * @param unsigned long degree : le degré de départ de l'extraction
- * @param unsigned long end : le degré d'arrivé de l'extraction
- * @return polynomial_t* 
+ * @fn     polynomial_reduce(polynomial_t *p, unsigned long n)
+ * @author Étienne QUÉLAIN
+ * @brief  Factorise un polynôme par X^n
+ * @param  polynomial_t *p : l'adresse du polynôme de travail
+ * @param  unsigned long n : le degré de factorisation
  */
-polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end);
+void polynomial_reduce(polynomial_t *p, unsigned long n);
+
+/**
+ * @fn     polynomial_reduce(polynomial_t *p, unsigned long n)
+ * @author Étienne QUÉLAIN
+ * @brief  Développe p(X) * X^n
+ * @param  polynomial_t *p : l'adresse du polynôme de travail
+ * @param  unsigned long n : le degré de factorisation
+ */
+void polynomial_increase(polynomial_t *p, unsigned long n);
+
+/**
+ * @fn     polynomial_insert(polynomial_t *p, monomial_t *m)
+ * @author Romain Failla
+ * @brief  Insère dans un polynôme un nouveau monôme
+ * @param  polynomial_t *p : l'adresse du polynôme de destination
+ * @param  monomial_t *m : l'adresse du monôme à ajouter
+ */
+void polynomial_insert(polynomial_t *p, monomial_t *m);
 
 /**
  * @fn     polynomial_append(polynomial_t *p, complex_t *coef, unsigned long degree)
@@ -77,13 +93,15 @@ polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned
 void polynomial_append(polynomial_t *p, complex_t *coef, unsigned long degree);
 
 /**
- * @fn     polynomial_insert(polynomial_t *p, monomial_t *m)
+ * @fn     polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end)
  * @author Romain Failla
- * @brief  Insère dans un polynôme un nouveau monôme
- * @param  polynomial_t *p : l'adresse du polynôme de destination
- * @param  monomial_t *m : l'adresse du monôme à ajouter
+ * @brief  Extrait les monômes du degré degree jusqu'au degré end du polynôme sélectionné
+ * @param  polynomial_t *p : l'adresse du polynôme d'extraction
+ * @param unsigned long degree : le degré de départ de l'extraction
+ * @param unsigned long end : le degré d'arrivé de l'extraction
+ * @return polynomial_t*
  */
-void polynomial_insert(polynomial_t *p, monomial_t *m);
+polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end);
 
 /**
  * @fn     polynomial_remove(polynomial_t *p, unsigned long degree)
