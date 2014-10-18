@@ -187,7 +187,7 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q)
 	polynomial_t *r2 = NULL, *r1 = NULL, *r0 = NULL;
 	polynomial_t *tmp = NULL;
 	monomial_t *iterator = NULL;
-	unsigned long i = 0;
+	unsigned long i = 0, n = 0;
 
 	if (p == NULL || q == NULL)
 		return NULL;
@@ -196,9 +196,13 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q)
 		return polynomial_sum(p, q);
 	else if (p->degree > q->degree)
 	{
+		n = q->degree;
+
 		p1 = polynomial_extract(p, p->degree, q->degree);
 		if (p1 == NULL)
 			return NULL;
+
+		polynomial_reduce(p1, n);
 
 		q1 = polynomial_extract(q, q->degree, q->degree);
 		if (q1 == NULL)
@@ -207,6 +211,8 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q)
 
 			return NULL;
 		}
+
+		polynomial_reduce(q1, n);
 
 		z2 = polynomial_scalarProduct(q->first->coef, p1);
 		if (z2 == NULL)
@@ -216,19 +222,16 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q)
 
 			return NULL;
 		}
-		
-		z2->last->degree *= 2;
-
-		for (i = 1, iterator = z2->last->previous ; iterator != NULL ; i++, iterator = iterator->previous)
-			iterator->degree = z2->last->degree + i;
-
-		z2->degree = z2->first->degree;
 	}
 	else if (p->degree < q->degree)
 	{
+		n = p->degree;
+
 		p1 = polynomial_extract(p, p->degree, p->degree);
 		if (p1 == NULL)
 			return NULL;
+
+		polynomial_reduce(p1, n);
 
 		q1 = polynomial_extract(q, q->degree, p->degree);
 		if (q1 == NULL)
@@ -238,6 +241,8 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q)
 			return NULL;
 		}
 
+		polynomial_reduce(q1, n);
+
 		z2 = polynomial_scalarProduct(p->first->coef, q1);
 		if (z2 == NULL)
 		{
@@ -246,22 +251,16 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q)
 
 			return NULL;
 		}
-
-		z2->last->degree *= 2;
-
-		for (i = 1, iterator = z2->last->previous ; iterator != NULL ; i++, iterator = iterator->previous)
-			iterator->degree = z2->last->degree + i;
-
-		z2->degree = z2->first->degree;
 	}
 	else
 	{
+		n = p->degree;
+
 		p1 = polynomial_extract(p, p->degree, p->degree);
 		if (p1 == NULL)
 			return NULL;
 
-		p1->first->degree = 0;
-		p1->degree = 0;
+		polynomial_reduce(p1, n);
 
 		q1 = polynomial_extract(q, q->degree, q->degree);
 		if (q1 == NULL)
@@ -271,8 +270,7 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q)
 			return NULL;
 		}
 
-		q1->first->degree = 0;
-		q1->degree = 0;
+		polynomial_reduce(q1, n);
 
 		z2 = polynomial_init(NULL);
 		if (z2 == NULL)
@@ -283,36 +281,155 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q)
 			return NULL;
 		}
 
-		polynomial_append(z2, complex_prod(p->first->coef, q->first->coef), p->degree * 2);
+		polynomial_append(z2, complex_prod(p->first->coef, q->first->coef), 0);
 	}
 
 	p0 = polynomial_extract(p, p->degree - 1, 0);
+	if (p0 == NULL)
+	{
+		polynomial_free(p1);
+		polynomial_free(q1);
+
+		polynomial_free(z2);
+
+		return NULL;
+	}
+
 	q0 = polynomial_extract(q, q->degree - 1, 0);
+	if (q0 == NULL)
+	{
+		polynomial_free(p1);
+		polynomial_free(p0);
+		polynomial_free(q1);
+
+		polynomial_free(z2);
+
+		return NULL;
+	}
 	
 	r0 = polynomial_sum(p1, p0);
+	if (r0 == NULL)
+	{
+		polynomial_free(p1);
+		polynomial_free(p0);
+		polynomial_free(q1);
+		polynomial_free(q0);
+
+		polynomial_free(z2);
+
+		return NULL;
+	}
+
 	r1 = polynomial_sum(q1, q0);
+	if (r1 == NULL)
+	{
+		polynomial_free(p1);
+		polynomial_free(p0);
+		polynomial_free(q1);
+		polynomial_free(q0);
+
+		polynomial_free(z2);
+		polynomial_free(r0);
+
+		return NULL;
+	}
+
 	r2 = polynomial_prod(r1, r0);
+	if (r2 == NULL)
+	{
+		polynomial_free(p1);
+		polynomial_free(p0);
+		polynomial_free(q1);
+		polynomial_free(q0);
+
+		polynomial_free(z2);
+		polynomial_free(r1);
+		polynomial_free(r0);
+
+		return NULL;
+	}
+
+	polynomial_free(r1);
+	polynomial_free(r0);
 
 	z0 = polynomial_prod(p0, q0);
+	if (z0 == NULL)
+	{
+		polynomial_free(p1);
+		polynomial_free(p0);
+		polynomial_free(q1);
+		polynomial_free(q0);
+
+		polynomial_free(z2);
+		polynomial_free(r2);
+
+		return NULL;
+	}
+
+	polynomial_free(p1);
+	polynomial_free(p0);
+	polynomial_free(q1);
+	polynomial_free(q0);
 
 	z1 = polynomial_diff(r2, z2);
+	if (z1 == NULL)
+	{
+		polynomial_free(r2);
+		polynomial_free(z2);
+		polynomial_free(z1);
+		polynomial_free(z0);
+
+		return NULL;
+	}
+
 	tmp = polynomial_diff(z1, z0);
+	if (tmp == NULL)
+	{
+		polynomial_free(r2);
+		polynomial_free(z2);
+		polynomial_free(z1);
+		polynomial_free(z0);
+
+		return NULL;
+	}
+
 	polynomial_free(z1);
 	z1 = tmp;
 
+	polynomial_increase(z2, 2 * n);
+	polynomial_increase(z1, n);
+
 	tmp = polynomial_sum(z2, z1);
+	if (tmp == NULL)
+	{
+		polynomial_free(r2);
+		polynomial_free(z2);
+		polynomial_free(z1);
+		polynomial_free(z0);
+
+		return NULL;
+	}
+
 	polynomial_free(z2);
 	z2 = tmp;
 
 	tmp = polynomial_sum(z2, z0);
+	if (tmp == NULL)
+	{
+		polynomial_free(r2);
+		polynomial_free(z2);
+		polynomial_free(z1);
+		polynomial_free(z0);
+
+		return NULL;
+	}
+
 	polynomial_free(z2);
 	z2 = tmp;
 
-	polynomial_free(r0);
-	polynomial_free(r1);
 	polynomial_free(r2);
-	polynomial_free(z0);
 	polynomial_free(z1);
+	polynomial_free(z0);
 
 	return z2;
 }

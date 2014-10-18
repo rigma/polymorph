@@ -113,6 +113,7 @@ complex_t *polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval)
 polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end)
 {
 	polynomial_t *q = NULL;
+	complex_t *z = NULL;
 	monomial_t *iterator = NULL;
 	unsigned long i = 0;
 
@@ -126,7 +127,11 @@ polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned
 	for (i = p->degree, iterator = p->first ; i >= end && iterator != NULL ; i--, iterator = iterator->next)
 	{
 		if (degree >= iterator->degree && iterator->degree >= end)
-			polynomial_append(q, iterator->coef, iterator->degree);
+		{
+			z = complex_init(iterator->coef->re, iterator->coef->im);
+
+			polynomial_append(q, z, iterator->degree);
+		}
 	}
 
 	if (q->size == 0)
