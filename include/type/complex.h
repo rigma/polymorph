@@ -33,7 +33,7 @@ void complex_free(complex_t *z);
 /**
  * @fn     complex_display(complex_t *z)
  * @brief  Renvoi une chaîne de caractère représentant le nombre complexe
- * @author Romain Failla
+ * @author Étienne Quélain
  * @param  complex_t *z : l'adresse du nombre complexe à afficher
  * @param  unsigned int precision : la précision de l'écriture (mettre à 0 pour la valeur par défaut)
  * @return char*

@@ -45,11 +45,11 @@ char *complex_display(complex_t *z, unsigned int precision)
 	}
     else
     {
-        if (z->re == 0)
-            sprintf(tmp, "i %.2lf", z->im);
+        if (z->im == 0 && z->re == 0);
         else if (z->im == 0)
             sprintf(tmp, "%.2lf", z->re);
-        else if (z->im == 0 && z->re == 0);
+        else if (z->re == 0)
+            sprintf(tmp, "i %.2lf", z->im);
         else
             sprintf(tmp, "%.2lf + i %.2lf", z->re, z->im);
     }

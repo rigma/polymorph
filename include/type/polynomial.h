@@ -38,7 +38,7 @@ void polynomial_free(polynomial_t *p);
 
 /**
  * @fn     polynomial_display(polynomial_t *p)
- * @author Romain Failla
+ * @author Étienne Quélain
  * @brief  Affiche le polynôme p
  * @param  polynomial_t *p : l'adresse du polynôme à afficher
  */

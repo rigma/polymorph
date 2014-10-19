@@ -39,7 +39,12 @@ void monomial_display(monomial_t *m)
 	z = complex_display(m->coef, 0);
 
 	if (m->degree > 0)
-		printf("(%s) * X ^ %lu", z, m->degree);
+	{
+	    if (m->coef->re == 0 && m->coef->re == 0);
+	    else
+            printf("(%s) * X ^ %lu", z, m->degree);
+	}
+
 	else
 		printf("%s", z);
 

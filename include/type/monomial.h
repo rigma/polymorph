@@ -35,7 +35,7 @@ void monomial_free(monomial_t *m);
 
 /**
  * @fn     monomial_display(monomial_t *m)
- * @author Romain Failla
+ * @author Étienne Quélain
  * @brief  Affiche un monôme
  * @param  monomial_t *m : l'adresse du monôme à afficher
  */
