@@ -186,8 +186,7 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q)
 	polynomial_t *p1 = NULL, *p0 = NULL, *q1 = NULL, *q0 = NULL;
 	polynomial_t *r2 = NULL, *r1 = NULL, *r0 = NULL;
 	polynomial_t *tmp = NULL;
-	monomial_t *iterator = NULL;
-	unsigned long i = 0, n = 0;
+	unsigned long n = 0;
 
 	if (p->degree == 0 && q->degree == 0)
 	{
