@@ -65,7 +65,7 @@ void polynomial_display(polynomial_t *p)
 		return;
 
 	if (p->name != NULL)
-		fprintf(stdin, "%s(X) = ", p->name);
+		fprintf(stdout, "%s(X) = ", p->name);
 
 	for (iterator = p->first ; iterator != NULL ; iterator = iterator->next)
 	{
@@ -114,9 +114,37 @@ complex_t *polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval)
 	return result;
 }
 
+void polynomial_reduce(polynomial_t *p, unsigned long n)
+{
+	monomial_t *iterator = NULL;
+
+	if (p == NULL || p->degree < n)
+		return;
+
+	for (iterator = p->first; iterator != NULL; iterator = iterator->next)
+		iterator->degree -= n;
+
+	p->degree = p->first->degree;
+}
+
+
+void polynomial_increase(polynomial_t *p, unsigned long n)
+{
+	monomial_t *iterator = NULL;
+
+	if (p == NULL)
+		return;
+
+	for (iterator = p->first; iterator != NULL; iterator = iterator->next)
+		iterator->degree += n;
+
+	p->degree = p->first->degree;
+}
+
 polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end)
 {
 	polynomial_t *q = NULL;
+	complex_t *z = NULL;
 	monomial_t *iterator = NULL;
 	unsigned long i = 0;
 
@@ -130,7 +158,17 @@ polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned
 	for (i = p->degree, iterator = p->first ; i >= end && iterator != NULL ; i--, iterator = iterator->next)
 	{
 		if (degree >= iterator->degree && iterator->degree >= end)
-			polynomial_append(q, iterator->coef, iterator->degree);
+		{
+			z = complex_init(iterator->coef->re, iterator->coef->im);
+			if (z == NULL)
+			{
+				polynomial_free(q);
+
+				return NULL;
+			}
+
+			polynomial_append(q, z, iterator->degree);
+		}
 	}
 
 	if (q->size == 0)
@@ -268,28 +306,4 @@ void polynomial_remove(polynomial_t *p, unsigned long degree)
 	// On libère le monôme de la mémoire et on décrémente la taille du polynôme
 	monomial_free(current);
 	p->size--;
-}
-
-
-void polynomial_reduce(polynomial_t *p, unsigned long n)
-{
-    monomial_t *iterator = NULL;
-
-    if (p == NULL || p->degree < n)
-        return;
-
-     for (iterator = p->first ; iterator != NULL ; iterator = iterator->next)
-        iterator->degree -= n;
- }
-
-
- void polynomial_increase(polynomial_t *p, unsigned long n)
-{
-    monomial_t *iterator = NULL;
-
-    if (p == NULL)
-        return;
-
-     for (iterator = p->first ; iterator != NULL ; iterator = iterator->next)
-        iterator->degree += n;
 }
