@@ -61,8 +61,6 @@ char *complex_display(complex_t *z, unsigned int precision)
 	return str;
 }
 
-
-
 complex_t *complex_conj(complex_t *z)
 {
 	return complex_init(z->re, -1.0 * z->im);

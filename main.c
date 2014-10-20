@@ -8,8 +8,8 @@ int main(int argc, char **argv)
 {
 	polynomial_t *p = NULL, *q = NULL, *r = NULL;
 
-	p = polynomial_init("p");
-	q = polynomial_init("q");
+	p = polynomial_init("P");
+	q = polynomial_init("Q");
 
 	polynomial_append(p, complex_init(3.0, 0.0), 2);
 	polynomial_append(p, complex_init(2.0, 0.0), 1);
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 	polynomial_display(p);
 	polynomial_display(q);
 
-	r = polynomial_prod(p, q);
+	r = polynomial_prod(p, q, NULL);
 	polynomial_display(r);
 
 	polynomial_free(p);
