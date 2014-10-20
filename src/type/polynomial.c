@@ -73,14 +73,12 @@ void polynomial_display(polynomial_t *p)
 
 		if (iterator->next != NULL)
         {
-            if (iterator->coef->re == 0 && iterator->coef->re == 0);
+            if (iterator->coef->re == 0 && iterator->coef->im == 0);
             else
                 printf(" + ");
         }
 		else
-            if (iterator->coef->re == 0 && iterator->coef->re == 0);
-            else
-                printf("\n");
+            printf("\n");
 	}
 }
 
@@ -106,7 +104,7 @@ complex_t *polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval)
 	complex_free(result);
 	result = tmp;
 
-	if (m->next != NULL)
+	if (m->next != NULL && tmp != NULL)
 	{
 		result = polynomial_eval(tmp, m->next, eval);
 

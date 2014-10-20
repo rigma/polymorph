@@ -41,6 +41,18 @@ void monomial_display(monomial_t *m)
 	if (m->degree > 0)
 	{
 	    if (m->coef->re == 0 && m->coef->re == 0);
+	    else if (m->coef->re > 0)
+        {
+            printf("%s * X ^ %lu", z, m->degree);
+        }
+        else if (m->coef->im > 0)
+        {
+            printf("%s * X ^ %lu", z, m->degree);
+        }
+        else if (m->coef->re > 0 && m->coef->im > 0)
+        {
+            printf("%s * X ^ %lu", z, m->degree);
+        }
 	    else
             printf("(%s) * X ^ %lu", z, m->degree);
 	}
