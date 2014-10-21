@@ -215,7 +215,7 @@ void polynomial_append(polynomial_t *p, complex_t *coef, unsigned long degree)
 	if (p == NULL || coef == NULL)
 		return;
 
-    if (m->coef->re == 0.0 && m->coef->im == 0.0)
+    if (coef->re == 0.0 && coef->im == 0.0)
         return;
 
 	// On alloue en mémoire le monôme à ajouter
