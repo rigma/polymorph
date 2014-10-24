@@ -35,6 +35,7 @@
 		</Compiler>
 		<Unit filename="include/arithmetic.h" />
 		<Unit filename="include/io/buffer.h" />
+		<Unit filename="include/io/console.h" />
 		<Unit filename="include/type/complex.h" />
 		<Unit filename="include/type/monomial.h" />
 		<Unit filename="include/type/polymorph.h" />
@@ -47,6 +48,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/io/buffer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/io/console.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/type/complex.c">

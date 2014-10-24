@@ -4,15 +4,15 @@
 #include <type/polynomial.h>
 #include <arithmetic.h>
 
+#include <io/console.h>
+
 void test();
 
 int main(int argc, char **argv)
 {
-	test();
+	console_t *console = console_init();
 
-	system("pause");
-
-	return EXIT_SUCCESS;
+	return console_run(console);
 }
 
 void test()
