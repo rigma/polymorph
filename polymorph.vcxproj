@@ -17,6 +17,7 @@
     <ClInclude Include="include\type\monomial.h" />
     <ClInclude Include="include\type\polymorph.h" />
     <ClInclude Include="include\type\polynomial.h" />
+    <ClInclude Include="include\type\polynomial_table.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
@@ -26,6 +27,7 @@
     <ClCompile Include="src\type\monomial.c" />
     <ClCompile Include="src\type\polymorph.c" />
     <ClCompile Include="src\type\polynomial.c" />
+    <ClCompile Include="src\type\polynomial_table.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{ECDD0D44-7417-4296-8F0A-CCAC2ADDE24A}</ProjectGuid>

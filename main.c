@@ -4,7 +4,18 @@
 #include <type/polynomial.h>
 #include <arithmetic.h>
 
+void test();
+
 int main(int argc, char **argv)
+{
+	test();
+
+	system("pause");
+
+	return EXIT_SUCCESS;
+}
+
+void test()
 {
 	polynomial_t *p = NULL, *q = NULL, *r = NULL;
 
@@ -28,8 +39,4 @@ int main(int argc, char **argv)
 	polynomial_free(p);
 	polynomial_free(q);
 	polynomial_free(r);
-
-	system("pause");
-
-	return EXIT_SUCCESS;
 }

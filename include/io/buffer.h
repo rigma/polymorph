@@ -7,7 +7,7 @@
 
 /**
  * @struct buffer_t
- * @author Romain Faill
+ * @author Romain Failla
  * @brief  Représente un tampon d'E/S via stdin
  */
 typedef struct {

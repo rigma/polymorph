@@ -39,6 +39,7 @@
 		<Unit filename="include/type/monomial.h" />
 		<Unit filename="include/type/polymorph.h" />
 		<Unit filename="include/type/polynomial.h" />
+		<Unit filename="include/type/polynomial_table.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -58,6 +59,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/type/polynomial.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/type/polynomial_table.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
