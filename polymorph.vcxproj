@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\analysis.h" />
     <ClInclude Include="include\arithmetic.h" />
     <ClInclude Include="include\io\buffer.h" />
     <ClInclude Include="include\io\console.h" />
@@ -22,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="src\analysis.c" />
     <ClCompile Include="src\arithmetic.c" />
     <ClCompile Include="src\io\buffer.c" />
     <ClCompile Include="src\io\console.c" />

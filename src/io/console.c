@@ -72,7 +72,7 @@ int console_run(console_t *console)
 				tmp++;
 			}
 
-			for (i = 0; i < console->size; i++)
+			for (i = 0 ; i < console->size ; i++)
 			{
 				if (!strcmp(input, console->commands[i]->name))
 				{
