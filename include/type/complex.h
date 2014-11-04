@@ -100,6 +100,25 @@ complex_t *complex_scalarProd(double k, complex_t *z);
 complex_t *complex_prod(complex_t *a, complex_t *b);
 
 /**
+ * @fn     complex_pow(complex_t *z, unsigned long n)
+ * @author Romain Failla
+ * @brief  Effectue z ^ n
+ * @param  complex_t *z : le nombre complexe à élever à la puissance n
+ * @param  unsigned long n : le degré de la puissance
+ * @return complex_t*
+ */
+complex_t *complex_pow(complex_t *z, unsigned long n);
+
+/**
+ * @fn     complex_reverse(complex_t *z)
+ * @author Romain Failla
+ * @brief  Effectue 1 / z
+ * @param  complex_t *z : le complexe à inverser
+ * @return complex_t*
+ */
+complex_t *complex_reverse(complex_t *z);
+
+/**
  * @fn     complex_scalarDiv(complex_t *z, double k)
  * @author Romain Failla
  * @brief  Réalise z / k

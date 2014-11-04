@@ -22,6 +22,9 @@ complex_t *complex_init(double re, double im)
 
 void complex_free(complex_t *z)
 {
+	if (z == NULL)
+		return;
+
 	free(z);
 }
 
@@ -114,6 +117,65 @@ complex_t *complex_prod(complex_t *a, complex_t *b)
 
 	// On effectue la somme et la différence du produit, on alloue en mémoire le nouveau complexe et on renvoit son adresse
 	return complex_init(a->re * b->re - a->im * b->im, a->re * b->im + a->im * b->re);
+}
+
+complex_t *complex_reverse(complex_t *z)
+{
+	double denom = 0.0;
+
+	if (z == NULL || (z->re == 0.0 && z->im == 0.0))
+		return NULL;
+
+	denom = z->re * z->re + z->im * z->im;
+
+	return complex_init(z->re / denom, (-1.0 * z->im) / denom);
+}
+
+complex_t *complex_pow(complex_t *z, unsigned long n)
+{
+	complex_t *y = NULL, *tmp = NULL;
+
+	if (z == NULL)
+		return NULL;
+	else if (n == 0)
+		return complex_init(1.0, 0.0);
+
+	if (n % 2 == 0)
+	{
+		y = complex_pow(z, n / 2);
+		if (y == NULL)
+			return NULL;
+
+		tmp = complex_init(y->re * y->re - y->im * y->im, 2.0 * y->re * y->im);
+		if (tmp == NULL)
+		{
+			complex_free(y);
+
+			return NULL;
+		}
+
+		complex_free(y);
+		y = tmp;
+	}
+	else
+	{
+		y = complex_pow(z, n - 1);
+		if (y == NULL)
+			return NULL;
+
+		tmp = complex_prod(z, y);
+		if (tmp == NULL)
+		{
+			complex_free(y);
+
+			return NULL;
+		}
+
+		complex_free(y);
+		y = tmp;
+	}
+
+	return y;
 }
 
 complex_t *complex_scalarDiv(complex_t *z, double k)

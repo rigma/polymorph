@@ -33,6 +33,7 @@
 			<Add option="-Wall" />
 			<Add directory="include" />
 		</Compiler>
+		<Unit filename="include/analysis.h" />
 		<Unit filename="include/arithmetic.h" />
 		<Unit filename="include/io/buffer.h" />
 		<Unit filename="include/io/console.h" />
@@ -42,6 +43,9 @@
 		<Unit filename="include/type/polynomial.h" />
 		<Unit filename="include/type/polynomial_table.h" />
 		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/analysis.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/arithmetic.c">

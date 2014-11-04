@@ -11,6 +11,7 @@
  * @brief  Représente un polynôme sous forme factorisé
  */
 typedef struct {
+	complex_t *a;
 	unsigned long size;
 	char *name;
 	polynomial_t *first;
@@ -51,5 +52,16 @@ void polymorph_append(polymorph_t *p, complex_t *root);
  * @param  complex_t *root : la racine a enlevé
  */
 void polymorph_remove(polymorph_t *p, complex_t *root);
+
+/**
+ * @fn     polymorph_evalFromTable(complex_t *a, complex_t **roots, complex_t *eval)
+ * @author Romain Failla
+ * @brief  Réalise l'évaluation en un nombre donné d'un polynôme sous forme factorisé défini à l'aide du tableau roots
+ * @param  complex_t *a : le coefficient principal du polynôme
+ * @param  complex_t **roots : les racines qui servent à définir le polynôme
+ * @param  complex_t *eval : le point de l'évaluation
+ * @return complex_t*
+ */
+complex_t *polymorph_evalFromTable(complex_t *a, complex_t **roots, complex_t *eval);
 
 #endif

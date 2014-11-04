@@ -1,7 +1,8 @@
 #ifndef ANALYSIS_H
 #define ANALYSIS_H
 
-#include <type/polynomial.h>
+#include "type/polynomial.h"
+#include "type/polymorph.h"
 
 /**
  * @fn     polynomial_differentiate(polynomial_t *p)
@@ -11,5 +12,23 @@
  * @return polynomial_t*
  */
 polynomial_t *polynomial_differentiate(polynomial_t *p);
+
+/**
+ * @fn     polynomial_zeros_DurandKerner(polynomial_t *p)
+ * @author Romain Failla
+ * @brief  Détermine des "bons" points de départ, à l'aide de la méthode de Durand-Kerner-Weierstrass, pour la méthode d'Aberth-Ehrlich pour un degré donné
+ * @param  polynomial_t *p : le polynôme qui subit l'approximation
+ * @return complex_t**
+ */
+complex_t **polynomial_zeros_DurandKerner(polynomial_t *p);
+
+/**
+ * @fn     polynomial_zeros(polynomial_t *p)
+ * @author Romain Failla
+ * @brief  Effectue l'approximation des racines du polynômes et les renvoies dans un polynôme sous forme factorisée en utilisant la méthode d'Aberth-Ehrlich
+ * @param  polynomial_t *p : le polynôme à analyser
+ * @return polymorph_t*
+ */
+polymorph_t *polynomial_zeros(polynomial_t *p);
 
 #endif

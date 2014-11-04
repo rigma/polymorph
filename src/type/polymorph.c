@@ -30,6 +30,7 @@ polymorph_t *polymorph_init(const char *name)
 	strcpy(p->name, name);
 
 	// On initialise les autres champs de la structure
+	p->a = NULL;
 	p->size = 0;
 	p->first = NULL;
 	p->last = NULL;
@@ -58,6 +59,7 @@ void polymorph_free(polymorph_t *p)
 	}
 
 	// Puis on libère le nom de la structure et elle-même
+	complex_free(p->a);
 	free(p->name);
 	free(p);
 }
@@ -146,3 +148,54 @@ void polymorph_remove(polymorph_t *p, complex_t *root)
 		p->last = NULL;
 	}
 }
+
+complex_t *polymorph_evalFromTable(complex_t *a, complex_t **roots, complex_t *eval)
+{
+	complex_t *result = NULL, *minus = NULL, *tmp = NULL;
+	size_t size = 0, i = 0;
+
+	if (a == NULL || roots == NULL || eval == NULL)
+		return NULL;
+
+	result = complex_init(1.0, 0.0);
+
+	size = sizeof(roots) / sizeof(complex_t*);
+	for (i = 0 ; i < size ; i++)
+	{
+		minus = complex_diff(eval, roots[i]);
+		if (minus == NULL)
+		{
+			complex_free(result);
+
+			return NULL;
+		}
+
+		tmp = complex_prod(result, minus);
+		if (tmp == NULL)
+		{
+			complex_free(minus);
+			complex_free(result);
+
+			return NULL;
+		}
+
+		complex_free(minus);
+		complex_free(result);
+
+		result = tmp;
+	}
+
+	tmp = result;
+	result = complex_prod(a, tmp);
+	if (result == NULL)
+	{
+		complex_free(tmp);
+
+		return NULL;
+	}
+
+	complex_free(tmp);
+	
+	return result;
+}
+
