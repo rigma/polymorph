@@ -82,63 +82,66 @@ void polynomial_display(polynomial_t *p)
 	}
 }
 
-complex_t *polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval)
+complex_t *polynomial_eval(polynomial_t *p, complex_t *coef, monomial_t *m, complex_t *eval)
 {
 	complex_t *result = NULL, *tmp = NULL;
 	unsigned long diff = 0;
 
-	// Mesure de sécurité
-	if (coef == NULL || m == NULL || eval == NULL)
+	if (p == NULL || coef == NULL || eval == NULL)
 		return NULL;
 
-	// On réalise d'abord coef * X avec X = eval
-	result = complex_prod(coef, eval);
-	if (result == NULL)
-		return NULL;
-
-	// On détermine d'abord la différence entre les degrés du monôme précédent et de l'actuel
-	diff = m->previous->degree - m->degree;
-
-	// Si la différence de degré est strictement supérieure à 1
-	while (diff > 1)
+	if (p->first->degree == 0)
+		return complex_init(coef->re, coef->im);
+	else
 	{
-		// On multiplie encore une fois le résultat par la valeur d'évaluation
-		tmp = complex_prod(result, eval);
-		if (tmp == NULL)
+		diff = (m == NULL) ? p->last->degree : m->previous->degree - m->degree;
+		while (diff > 0)
 		{
-			complex_free(result);
+			if (result == NULL)
+			{
+				result = complex_prod(coef, eval);
+				if (result == NULL)
+					return NULL;
+			}
+			else
+			{
+				tmp = complex_prod(result, eval);
+				if (tmp == NULL)
+				{
+					complex_free(result);
 
-			return NULL;
+					return NULL;
+				}
+
+				complex_free(result);
+				result = tmp;
+			}
+
+			diff--;
 		}
 
-		complex_free(result);
-		result = tmp;
-		diff--;
+		if (m != NULL)
+		{
+			tmp = complex_sum(result, m->coef);
+			if (tmp == NULL)
+			{
+				complex_free(result);
+
+				return NULL;
+			}
+
+			complex_free(result);
+			result = tmp;
+
+			if (m->next != NULL || m->degree > 0)
+			{
+				result = polynomial_eval(p, tmp, m->next, eval);
+				complex_free(tmp);
+			}
+		}
+
+		return result;
 	}
-
-	// Puis on ajoute le coefficient du terme actuel
-	tmp = complex_sum(result, m->coef);
-	if (tmp == NULL)
-	{
-		complex_free(result);
-
-		return NULL;
-	}
-
-	complex_free(result);
-	result = tmp;
-
-	// On vérifie si l'évaluation est finie
-	if (m->next != NULL && tmp != NULL)
-	{
-		// Si non, on rappelle la fonction pour avoir le resultat
-		result = polynomial_eval(tmp, m->next, eval);
-
-		// On libère de la mémoire l'ancien résultat
-		complex_free(tmp);
-	}
-
-	return result;
 }
 
 void polynomial_reduce(polynomial_t *p, unsigned long n)

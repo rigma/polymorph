@@ -38,20 +38,22 @@ char *complex_display(complex_t *z, unsigned int precision)
 
 	if (precision > 0)
 	{
-	    if (z->re == 0)
+		if (z->re == 0.0 && z->im == 0.0)
+			sprintf(tmp, "0");
+	    if (z->re == 0.0)
             sprintf(tmp, "i %.*lf", precision, z->im);
-        else if (z->im == 0)
+        else if (z->im == 0.0)
             sprintf(tmp, "%.*lf", precision, z->re);
-        else if (z->im == 0 && z->re == 0);
         else
             sprintf(tmp, "%.*lf + i %.*lf", precision, z->re, precision, z->im);
 	}
     else
     {
-        if (z->im == 0 && z->re == 0);
-        else if (z->im == 0)
+		if (z->im == 0.0 && z->re == 0.0)
+			sprintf(tmp, "0");
+        else if (z->im == 0.0)
             sprintf(tmp, "%.2lf", z->re);
-        else if (z->re == 0)
+        else if (z->re == 0.0)
             sprintf(tmp, "i %.2lf", z->im);
         else
             sprintf(tmp, "%.2lf + i %.2lf", z->re, z->im);

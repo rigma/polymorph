@@ -48,12 +48,13 @@ void polynomial_display(polynomial_t *p);
  * @fn     polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval)
  * @author Romain Failla
  * @brief  Réalise l'évaluation d'un polynôme sous forme développée en eval
+ * @param  polynomial_t *p : l'adresse du polynôme évalué
  * @param  complex_t *coef : l'adresse du coefficient de l'évaluation
  * @param  monomial_t *m : l'adresse du monôme courant du polynôme
  * @param  complex_t *eval : la valeur de l'évaluation
  * @return complex_t*
  */
-complex_t *polynomial_eval(complex_t *coef, monomial_t *m, complex_t *eval);
+complex_t *polynomial_eval(polynomial_t *p, complex_t *coef, monomial_t *m, complex_t *eval);
 
 /**
  * @fn     polynomial_reduce(polynomial_t *p, unsigned long n)
