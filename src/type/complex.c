@@ -133,18 +133,19 @@ complex_t *complex_reverse(complex_t *z)
 	return complex_init(z->re / denom, (-1.0 * z->im) / denom);
 }
 
-complex_t *complex_pow(complex_t *z, unsigned long n)
+complex_t *complex_pow(complex_t *z, long n)
 {
 	complex_t *y = NULL, *tmp = NULL;
+	unsigned long degree = labs(n);
 
 	if (z == NULL)
 		return NULL;
-	else if (n == 0)
+	else if (degree == 0)
 		return complex_init(1.0, 0.0);
 
-	if (n % 2 == 0)
+	if (degree % 2 == 0)
 	{
-		y = complex_pow(z, n / 2);
+		y = complex_pow(z, degree / 2);
 		if (y == NULL)
 			return NULL;
 
@@ -161,11 +162,25 @@ complex_t *complex_pow(complex_t *z, unsigned long n)
 	}
 	else
 	{
-		y = complex_pow(z, n - 1);
+		y = complex_pow(z, degree - 1);
 		if (y == NULL)
 			return NULL;
 
 		tmp = complex_prod(z, y);
+		if (tmp == NULL)
+		{
+			complex_free(y);
+
+			return NULL;
+		}
+
+		complex_free(y);
+		y = tmp;
+	}
+
+	if (n < 0)
+	{
+		tmp = complex_reverse(y);
 		if (tmp == NULL)
 		{
 			complex_free(y);

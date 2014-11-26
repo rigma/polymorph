@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 #include <type/complex.h>
@@ -577,4 +578,113 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q, const char *name
 
 	// Et on retourne le résultat
 	return z2;
+}
+
+polynomial_t *polynomial_pow(polynomial_t *p, long n)
+{
+	polynomial_t *q = NULL, *tmp = NULL;
+	unsigned long degree = labs(n);
+	char str[4096] = { 0 };
+
+	sprintf(str, "%ld", n);
+
+	if (p == NULL)
+		return NULL;
+	else if (degree == 0)
+	{
+		q = polynomial_init(NULL);
+		if (q == NULL)
+			return NULL;
+
+		q->name = (char*) malloc((sizeof(p->name) + strlen(str) + 1) * sizeof(char));
+		if (q->name == NULL)
+		{
+			free(q);
+
+			return NULL;
+		}
+
+		strcpy(q->name, p->name);
+		strcat(q->name, "^");
+		strcat(q->name, str);
+
+		polynomial_append(q, complex_init(1.0, 0.0), 0);
+
+		return q;
+	}
+
+	if (degree % 2 == 0)
+	{
+		q = polynomial_pow(p, degree / 2);
+		if (q == NULL)
+			return NULL;
+
+		tmp = polynomial_pow(q, 2);
+		if (tmp == NULL)
+		{
+			polynomial_free(q);
+
+			return NULL;
+		}
+
+		polynomial_free(q);
+		q = tmp;
+
+		if (q->name != NULL)
+			free(q->name);
+
+		q->name = (char*) malloc((sizeof(p->name) + strlen(str) + 1) * sizeof(char));
+		if (q->name == NULL)
+		{
+			polynomial_free(q);
+
+			return NULL;
+		}
+
+		strcpy(q->name, p->name);
+		strcat(q->name, "^");
+		strcat(q->name, str);
+	}
+	else
+	{
+		q = polynomial_pow(p, degree - 1);
+		if (q == NULL)
+			return NULL;
+
+		tmp = polynomial_prod(p, q, NULL);
+		if (tmp == NULL)
+		{
+			polynomial_free(q);
+
+			return NULL;
+		}
+
+		polynomial_free(q);
+		q = tmp;
+
+		if (q->name != NULL)
+			free(q->name);
+
+		q->name = (char*) malloc((sizeof(p->name) + strlen(str) + 1) * sizeof(char));
+		if (q->name == NULL)
+		{
+			polynomial_free(q);
+
+			return NULL;
+		}
+
+		strcpy(q->name, p->name);
+		strcat(q->name, "^");
+		strcat(q->name, str);
+	}
+
+	// Inversion et division non géré pour le moment
+	if (n < 0)
+	{
+		polynomial_free(q);
+
+		return NULL;
+	}
+
+	return q;
 }

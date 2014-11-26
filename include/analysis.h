@@ -4,6 +4,9 @@
 #include "type/polynomial.h"
 #include "type/polymorph.h"
 
+#define ROOTS_MAX_COUNT 999
+#define ROOTS_EPSILON   1e-15
+
 /**
  * @fn     polynomial_differentiate(polynomial_t *p)
  * @author Romain Failla

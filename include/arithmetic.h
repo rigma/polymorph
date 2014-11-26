@@ -47,4 +47,14 @@ polynomial_t *polynomial_scalarProduct(complex_t *k, polynomial_t *p, const char
  */
 polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q, const char *name);
 
+/**
+ * @fn     polynomial_pow(polynomial_t *p, long n)
+ * @author Romain Failla
+ * @brief  Réalise p^n
+ * @param  polynomial_t *p : le polynôme à élever à la puissance n
+ * @param  long n : la puissance de l'exponentiation
+ * @return polynomial_t*
+ */
+polynomial_t *polynomial_pow(polynomial_t *p, long n);
+
 #endif

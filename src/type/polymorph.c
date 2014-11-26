@@ -149,18 +149,17 @@ void polymorph_remove(polymorph_t *p, complex_t *root)
 	}
 }
 
-complex_t *polymorph_evalFromTable(complex_t *a, complex_t **roots, complex_t *eval)
+complex_t *polymorph_evalFromTable(complex_t *a, size_t nbrRoots, complex_t **roots, complex_t *eval)
 {
 	complex_t *result = NULL, *minus = NULL, *tmp = NULL;
-	size_t size = 0, i = 0;
+	size_t i = 0;
 
 	if (a == NULL || roots == NULL || eval == NULL)
 		return NULL;
 
 	result = complex_init(1.0, 0.0);
 
-	size = sizeof(roots) / sizeof(complex_t*);
-	for (i = 0 ; i < size ; i++)
+	for (i = 0 ; i < nbrRoots ; i++)
 	{
 		minus = complex_diff(eval, roots[i]);
 		if (minus == NULL)
