@@ -98,11 +98,29 @@ void polynomial_append(polynomial_t *p, complex_t *coef, unsigned long degree);
  * @author Romain Failla
  * @brief  Extrait les monômes du degré degree jusqu'au degré end du polynôme sélectionné
  * @param  polynomial_t *p : l'adresse du polynôme d'extraction
- * @param unsigned long degree : le degré de départ de l'extraction
- * @param unsigned long end : le degré d'arrivé de l'extraction
+ * @param  unsigned long degree : le degré de départ de l'extraction
+ * @param  unsigned long end : le degré d'arrivé de l'extraction
  * @return polynomial_t*
  */
 polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end);
+
+/**
+ * @fn     polynomial_extractReal(polynomial_t *p)
+ * @author Romain Failla
+ * @brief  Extrait la partie réelle du polynôme donné
+ * @param  polynomial_t *p : le polynôme d'extraction
+ * @return polynomial_t*
+ */
+polynomial_t *polynomial_extractReal(polynomial_t *p);
+
+/**
+* @fn     polynomial_extractImaginary(polynomial_t *p)
+* @author Romain Failla
+* @brief  Extrait la partie imaginaire du polynôme donné
+* @param  polynomial_t *p : le polynôme d'extraction
+* @return polynomial_t*
+*/
+polynomial_t *polynomial_extractImaginary(polynomial_t *p);
 
 /**
  * @fn     polynomial_remove(polynomial_t *p, unsigned long degree)

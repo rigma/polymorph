@@ -17,6 +17,16 @@
 polynomial_t *polynomial_differentiate(polynomial_t *p);
 
 /**
+ * @fn     polynomial_integrate(polynomial_t *p, complex_t *c)
+ * @author Romain Failla
+ * @brief  Réalise la primitive du polynôme développé p
+ * @param  polynomial_t *p : l'adresse du polynôme à primitiver
+ * @param  complex_t *c : la constante de primitivisation (vous pouvez la laisser à NULL)
+ * @return polynomial_t*
+ */
+polynomial_t *polynomial_integrate(polynomial_t *p, complex_t *c);
+
+/**
  * @fn     polynomial_zeros_DurandKerner(polynomial_t *p)
  * @author Romain Failla
  * @brief  Détermine des "bons" points de départ, à l'aide de la méthode de Durand-Kerner-Weierstrass, pour la méthode d'Aberth-Ehrlich pour un degré donné

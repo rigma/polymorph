@@ -12,13 +12,7 @@ void test();
 
 int main(int argc, char **argv)
 {
-	/*console_t *console = console_init();
-
-	return console_run(console);*/
-
-	test();
-
-	system("pause");
+	console_start("msg.txt");
 
 	return EXIT_SUCCESS;
 }

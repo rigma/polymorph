@@ -35,6 +35,34 @@ polynomial_t *polynomial_differentiate(polynomial_t *p)
 	return q;
 }
 
+polynomial_t *polynomial_integrate(polynomial_t *p, complex_t *c)
+{
+	polynomial_t *q = NULL;
+	monomial_t *iterator = NULL;
+	char *name = NULL;
+
+	if (p == NULL)
+		return NULL;
+
+	q = polynomial_init(NULL);
+	if (q == NULL)
+		return NULL;
+
+	name = (char*) malloc((sizeof(p->name) + 1) * sizeof(char));
+	if (name != NULL)
+	{
+		strcpy(name, p->name);
+		strcat(name, "_");
+
+		q->name = name;
+	}
+
+	for (iterator = p->first ; iterator != NULL ; iterator = iterator = iterator->next)
+		polynomial_append(q, complex_scalarProd(1.0 / (iterator->degree + 1), iterator->coef), iterator->degree + 1);
+
+	return q;
+}
+
 complex_t **polynomial_zeros_DurandKerner(polynomial_t *p)
 {
 	complex_t **roots = NULL, **previous = NULL, **coefs = NULL;

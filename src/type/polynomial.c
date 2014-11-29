@@ -171,65 +171,6 @@ void polynomial_increase(polynomial_t *p, unsigned long n)
 	p->degree = p->first->degree;
 }
 
-polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end)
-{
-	polynomial_t *q = NULL;
-	complex_t *z = NULL;
-	monomial_t *iterator = NULL;
-	unsigned long i = 0;
-
-	if (p == NULL)
-		return NULL;
-
-	q = polynomial_init(NULL);
-	if (q == NULL)
-		return NULL;
-
-	for (i = p->degree, iterator = p->first ; i >= end && iterator != NULL ; i--, iterator = iterator->next)
-	{
-		if (degree >= iterator->degree && iterator->degree >= end)
-		{
-			z = complex_init(iterator->coef->re, iterator->coef->im);
-			if (z == NULL)
-			{
-				polynomial_free(q);
-
-				return NULL;
-			}
-
-			polynomial_append(q, z, iterator->degree);
-		}
-	}
-
-	if (q->size == 0)
-	{
-		polynomial_free(q);
-		q = NULL;
-	}
-
-	return q;
-}
-
-void polynomial_append(polynomial_t *p, complex_t *coef, unsigned long degree)
-{
-	monomial_t *m = NULL;
-
-	// Mesure de sécurité
-	if (p == NULL || coef == NULL)
-		return;
-
-    if (coef->re == 0.0 && coef->im == 0.0)
-        return;
-
-	// On alloue en mémoire le monôme à ajouter
-	m = monomial_init(coef, degree);
-	if (m == NULL)
-		return;
-
-	// Et on l'insère dans le polynôme
-	polynomial_insert(p, m);
-}
-
 void polynomial_insert(polynomial_t *p, monomial_t *m)
 {
 	monomial_t *current = NULL;
@@ -292,6 +233,121 @@ void polynomial_insert(polynomial_t *p, monomial_t *m)
 	}
 
 	p->size++;
+}
+
+void polynomial_append(polynomial_t *p, complex_t *coef, unsigned long degree)
+{
+	monomial_t *m = NULL;
+
+	// Mesure de sécurité
+	if (p == NULL || coef == NULL)
+		return;
+
+    if (coef->re == 0.0 && coef->im == 0.0)
+        return;
+
+	// On alloue en mémoire le monôme à ajouter
+	m = monomial_init(coef, degree);
+	if (m == NULL)
+		return;
+
+	// Et on l'insère dans le polynôme
+	polynomial_insert(p, m);
+}
+
+polynomial_t *polynomial_extract(polynomial_t *p, unsigned long degree, unsigned long end)
+{
+	polynomial_t *q = NULL;
+	complex_t *z = NULL;
+	monomial_t *iterator = NULL;
+	unsigned long i = 0;
+
+	if (p == NULL)
+		return NULL;
+
+	q = polynomial_init(NULL);
+	if (q == NULL)
+		return NULL;
+
+	for (i = p->degree, iterator = p->first; i >= end && iterator != NULL; i--, iterator = iterator->next)
+	{
+		if (degree >= iterator->degree && iterator->degree >= end)
+		{
+			z = complex_init(iterator->coef->re, iterator->coef->im);
+			if (z == NULL)
+			{
+				polynomial_free(q);
+
+				return NULL;
+			}
+
+			polynomial_append(q, z, iterator->degree);
+		}
+	}
+
+	if (q->size == 0)
+	{
+		polynomial_free(q);
+		q = NULL;
+	}
+
+	return q;
+}
+
+polynomial_t *polynomial_extractReal(polynomial_t *p)
+{
+	polynomial_t *q = NULL;
+	monomial_t *iterator = NULL;
+	char *name = NULL;
+
+	if (p == NULL)
+		return NULL;
+
+	q = polynomial_init(NULL);
+	if (q == NULL)
+		return NULL;
+
+	name = (char*) malloc((sizeof(char) + 3) * sizeof(char));
+	if (name != NULL)
+	{
+		strcpy(name, "Re ");
+		strcat(name, p->name);
+		
+		q->name = name;
+	}
+
+	for (iterator = p->first ; iterator != NULL ; iterator = iterator->next)
+		polynomial_append(q, complex_init(iterator->coef->re, 0.0), iterator->degree);
+
+	return q;
+}
+
+polynomial_t *polynomial_extractImaginary(polynomial_t *p)
+{
+	polynomial_t *q = NULL;
+	monomial_t *iterator = NULL;
+	char *name = NULL;
+
+	if (p == NULL)
+		return NULL;
+
+	q = polynomial_init(NULL);
+	if (q == NULL)
+		return NULL;
+
+	name = (char*)malloc((sizeof(char) + 3) * sizeof(char));
+	if (name != NULL)
+	{
+		strcpy(name, "Im ");
+		strcat(name, p->name);
+
+		q->name = name;
+	}
+
+	for (iterator = p->first; iterator != NULL; iterator = iterator->next)
+		polynomial_append(q, complex_init(0.0, iterator->coef->im), iterator->degree);
+
+	return q;
 }
 
 void polynomial_remove(polynomial_t *p, unsigned long degree)
