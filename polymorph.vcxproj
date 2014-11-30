@@ -14,24 +14,28 @@
     <ClInclude Include="include\analysis.h" />
     <ClInclude Include="include\arithmetic.h" />
     <ClInclude Include="include\io\buffer.h" />
+    <ClInclude Include="include\io\commands.h" />
     <ClInclude Include="include\io\console.h" />
+    <ClInclude Include="include\io\manager.h" />
     <ClInclude Include="include\type\complex.h" />
     <ClInclude Include="include\type\monomial.h" />
     <ClInclude Include="include\type\polymorph.h" />
     <ClInclude Include="include\type\polynomial.h" />
-    <ClInclude Include="include\type\polynomial_table.h" />
+    <ClInclude Include="include\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="src\analysis.c" />
     <ClCompile Include="src\arithmetic.c" />
     <ClCompile Include="src\io\buffer.c" />
+    <ClCompile Include="src\io\commands\define.c" />
     <ClCompile Include="src\io\console.c" />
+    <ClCompile Include="src\io\manager.c" />
     <ClCompile Include="src\type\complex.c" />
     <ClCompile Include="src\type\monomial.c" />
     <ClCompile Include="src\type\polymorph.c" />
     <ClCompile Include="src\type\polynomial.c" />
-    <ClCompile Include="src\type\polynomial_table.c" />
+    <ClCompile Include="src\utils.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{ECDD0D44-7417-4296-8F0A-CCAC2ADDE24A}</ProjectGuid>

@@ -1,6 +1,8 @@
 #ifndef CONSOLE_H
 #define CONSOLE_H
 
+#define DIFF   "diff"
+#define INT    "int"
 #define EXIT   "exit"
 #define HELP   "help"
 #define DEFINE "define"
@@ -17,6 +19,8 @@
  * @brief  Représente un mot clé de l'invité de commande
  */
 typedef enum {
+	TOK_DIFF = 10,
+	TOK_INT = 9,
 	TOK_EXIT = 8,
 	TOK_HELP = 7,
 	TOK_DEFINE = 6,
@@ -30,13 +34,13 @@ typedef enum {
 } token_t;
 
 /**
- * @fn     getToken(const char *str)
+ * @fn     getToken(char *str)
  * @author Romain Failla
  * @brief  Renvoie le token de la chaîne passé en argument
  * @param  char *str : la chaîne à tester
  * @return token_t
  */
-token_t getToken(const char *str);
+token_t getToken(char *str);
 
 /**
  * @fn     console_start(const char *msg)

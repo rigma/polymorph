@@ -4,6 +4,7 @@
 #include <math.h>
 
 #include <type/complex.h>
+#include <utils.h>
 
 complex_t *complex_init(double re, double im)
 {
@@ -28,7 +29,123 @@ void complex_free(complex_t *z)
 	free(z);
 }
 
-char *complex_display(complex_t *z, unsigned int precision)
+complex_t *complex_fromString(const char *str)
+{
+	char **fragments = NULL, *iterator = NULL, *i = NULL, *tmp = NULL;
+	complex_t *z = NULL;
+	double re = 0.0, im = 0.0;
+	size_t nbrFragments = 0, size = 0;
+	char number = 0;
+
+	if (str == NULL)
+		return NULL;
+
+	fragments = split(str, ' ', &nbrFragments);
+	if (fragments == NULL)
+		return NULL;
+
+	if (nbrFragments == 3)
+	{
+		// On convertit les chaînes de caractères en nombre
+		re = atof(fragments[0]);
+		
+		if (!strcmp(fragments[2], "i"))
+			im = 1.0;
+		else
+			im = atof(fragments[2] + 1);
+
+		z = (!strcmp(fragments[1], "-")) ? complex_init(re, -im) : complex_init(re, im);
+	}
+	else if (nbrFragments == 2)
+	{
+		// On recherche si il y a un i présent dans le nombre
+		i = strchr(fragments[1], 'i');
+		if (i != NULL)
+		{
+			size = 1;
+			tmp = (char*) malloc(sizeof(char));
+			iterator = fragments[1];
+
+			while (*iterator != '\0')
+			{
+				if (iterator != i)
+				{
+					if (*iterator >= '0' && *iterator <= '9')
+						number = 1;
+
+					tmp[size - 1] = *iterator;
+
+					size++;
+					tmp = (char*) realloc(tmp, size * sizeof(char));
+				}
+
+				iterator++;
+			}
+
+			if (!number)
+			{
+				tmp[size - 1] = '1';
+
+				size++;
+				tmp = (char*) realloc(tmp, size * sizeof(char));
+			}
+
+			tmp[size - 1] = '\0';
+
+			z = (!strcmp(fragments[0], "-")) ? complex_init(0.0, -atof(tmp)) : complex_init(0.0, atof(tmp));
+			free(tmp);
+		}
+		else
+			z = (!strcmp(fragments[0], "-")) ? complex_init(atof(fragments[1]), 0.0) : complex_init(atof(fragments[1]), 0.0);
+	}
+	else if (nbrFragments == 1)
+	{
+		// On recherche si il y a un i présent dans le nombre
+		i = strchr(*fragments, 'i');
+		if (i != NULL)
+		{
+			size = 1;
+			tmp = (char*) malloc(sizeof(char));
+			iterator = *fragments;
+
+			while (*iterator != '\0')
+			{
+				if (iterator != i)
+				{
+					if (*iterator >= '0' && *iterator <= '9')
+						number = 1;
+
+					tmp[size - 1] = *iterator;
+
+					size++;
+					tmp = (char*) realloc(tmp, size * sizeof(char));
+				}
+
+				iterator++;
+			}
+
+			if (!number)
+			{
+				tmp[size - 1] = '1';
+
+				size++;
+				tmp = (char*) realloc(tmp, size * sizeof(char));
+			}
+
+			tmp[size - 1] = '\0';
+			im = atof(tmp);
+
+			z = complex_init(0.0, im);
+			free(tmp);
+		}
+		else
+			z = complex_init(atof(*fragments), 0.0);
+	}
+
+	return z;
+}
+
+char *complex_toString(complex_t *z, unsigned int precision)
 {
 	char tmp[512] = { 0 };
 	char *str = NULL;
@@ -69,6 +186,11 @@ char *complex_display(complex_t *z, unsigned int precision)
 complex_t *complex_conj(complex_t *z)
 {
 	return complex_init(z->re, -1.0 * z->im);
+}
+
+double complex_arg(complex_t *z)
+{
+	return acos(z->re / z->mod);
 }
 
 char complex_compare(complex_t *a, complex_t *b)

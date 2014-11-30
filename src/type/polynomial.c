@@ -77,8 +77,6 @@ void polynomial_display(polynomial_t *p)
             else
                 printf(" + ");
         }
-		else
-            printf("\n");
 	}
 }
 

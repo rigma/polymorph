@@ -199,7 +199,7 @@ polynomial_t *polynomial_scalarProduct(complex_t *k, polynomial_t *p, const char
 		r = polynomial_init(name);
 	else if (p->name != NULL)
 	{
-		z = complex_display(k, 0);
+		z = complex_toString(k, 0);
 		if (z == NULL)
 			return NULL;
 

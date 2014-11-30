@@ -4,36 +4,33 @@
 
 #include <io/buffer.h>
 #include <io/console.h>
+#include <io/commands.h>
 
-token_t getToken(const char *str)
+token_t getToken(char *str)
 {
-	if (!strcmp(str, EXIT))
-		return TOK_EXIT;
-	else if (!strcmp(str, HELP))
-		return TOK_HELP;
-	else if (!strcmp(str, DEFINE))
-		return TOK_DEFINE;
-	else if (!strcmp(str, EQUAL))
-		return TOK_EQUAL;
-	else if (!strcmp(str, PLUS))
-		return TOK_PLUS;
-	else if (!strcmp(str, MINUS))
-		return TOK_MINUS;
-	else if (!strcmp(str, CROSS) || !strcmp(str, "*"))
-		return TOK_CROSS;
-	else if (!strcmp(str, DIVIDE))
-		return TOK_DIVIDE;
-	else if (!strcmp(str, MODULO))
-		return TOK_MODULO;
-	else
-		return TOK_OTHER;
+	char *input = strtok(str, " ");
+	token_t result = TOK_OTHER;
+
+	if (!strcmp(input, DIFF))
+		result = TOK_DIFF;
+	else if (!strcmp(input, INT))
+		result = TOK_INT;
+	else if (!strcmp(input, EXIT))
+		result = TOK_EXIT;
+	else if (!strcmp(input, HELP))
+		result = TOK_HELP;
+	else if (!strcmp(input, DEFINE))
+		result = TOK_DEFINE;
+
+	return result;
 }
 
 void console_start(const char *msg)
 {
 	FILE *f = NULL;
 	buffer_t *buffer = NULL;
-	char *str = NULL;
+	entry_t *polynomials = NULL;
+	char *input = NULL, *str = NULL;
 	char run = 0, c = 0;
 
 	f = fopen(msg, "r");
@@ -64,7 +61,10 @@ void console_start(const char *msg)
 	while (run)
 	{
 		buffer_read(buffer, 0, ">> ");
-		str = buffer_get(buffer);
+		input = buffer_get(buffer);
+		
+		str = (char*) malloc(sizeof(input) * sizeof(char));
+		strcpy(str, input);
 
 		switch (getToken(str))
 		{
@@ -73,14 +73,19 @@ void console_start(const char *msg)
 			break;
 
 		case TOK_HELP:
-			printf("%s\n", str);
+			printf("%s\n", input);
+			break;
+
+		case TOK_DEFINE:
+			free(input);
+			
+			input = strtok(NULL, " ");
+			define(buffer, &polynomials, input);
 			break;
 
 		default:
 			printf("YOLO !\n");
 		}
-
-		free(str);
 	}
 
 	buffer_free(buffer);

@@ -31,14 +31,23 @@ complex_t *complex_init(double re, double im);
 void complex_free(complex_t *z);
 
 /**
- * @fn     complex_display(complex_t *z)
+ * @fn     complex_fromString(const char *str)
+ * @autor  Romain Failla
+ * @brief  Crée un complexe à partir d'une chaîne de caractère
+ * @param  const char *str : la chaîne de caractère à analyser
+ * @return complex_t*
+ */
+complex_t *complex_fromString(const char *str);
+
+/**
+ * @fn     complex_toString(complex_t *z)
  * @brief  Renvoi une chaîne de caractère représentant le nombre complexe
  * @author Étienne Quélain
  * @param  complex_t *z : l'adresse du nombre complexe à afficher
  * @param  unsigned int precision : la précision de l'écriture (mettre à 0 pour la valeur par défaut)
  * @return char*
  */
-char *complex_display(complex_t *z, unsigned int precision);
+char *complex_toString(complex_t *z, unsigned int precision);
 
 /**
  * @fn     complex_conj(complex_t *z)
@@ -48,6 +57,15 @@ char *complex_display(complex_t *z, unsigned int precision);
  * @return complex_t* : l'adresse du conjugué
  */
 complex_t *complex_conj(complex_t *z);
+
+/**
+ * @fn     complex_arg(complex_t *z)
+ * @author Romain Failla
+ * @brief  Renvoi l'argument du complexe (en radians)
+ * @param  complex_t *z : le complexe ciblé
+ * @return double
+ */
+double complex_arg(complex_t *z);
 
 /**
  * @fn     complex_compare(complex_t *a, complex_t *b)
