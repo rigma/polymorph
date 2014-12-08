@@ -1,0 +1,8 @@
+Code livré au 01/12/2014
+
+Fonctionnalités :
+* toutes les opérations sur les complexess
+* arithmétique des polynômes sur C[X] sauf division euclidienne
+* exponentiation rapide
+* début d'algorithmes pour l'extraction des racines des polynômes
+* IHM non achevé (une version plus complète sera proposée le jour de la soutenance) par manque de temps

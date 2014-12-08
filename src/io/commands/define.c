@@ -4,21 +4,35 @@
 
 #include <type/polynomial.h>
 #include <io/commands.h>
+#include <utils.h>
 
-int define(buffer_t *buffer, entry_t **list, const char *name)
+int define(buffer_t *buffer, entry_t **list, char *args)
 {
 	polynomial_t *p = NULL;
 	complex_t *z = NULL;
-	char *output = NULL, *input = NULL;
+	char **table = NULL, *output = NULL, *input = NULL, *name = NULL;
 	char run = 1;
+	size_t size = 0, i = 0;
 
 	if (buffer == NULL)
 		return EXIT_FAILURE;
 
-	if (name == NULL)
+	if (args == NULL)
 	{
 		buffer_read(buffer, 0, "Entrez le nom de vôtre polynôme : ");
 		name = buffer_get(buffer);
+	}
+	else
+	{
+		table = split(args, ' ', &size);
+
+		name = (char*) malloc(sizeof(table[1]) * sizeof(char));
+		strcpy(name, table[1]);
+
+		for (i = 0; i < size; i++)
+			free(table[i]);
+
+		free(table);
 	}
 
 	p = polynomial_init(name);
@@ -45,11 +59,20 @@ int define(buffer_t *buffer, entry_t **list, const char *name)
 			output = complex_toString(z, 0);
 
 			if (p->size == 0)
-				printf("%s(X) = %s X ^ ", p->name, output);
+			{
+				if (z->re != 0.0 && z->im != 0.0)
+					printf("%s(X) = (%s) X ^ ", p->name, output);
+				else
+					printf("%s(X) = %s X ^ ", p->name, output);
+			}
 			else
 			{
 				polynomial_display(p);
-				printf(" + %s X ^ ", output);
+
+				if (z->re != 0.0 && z->im != 0.0)
+					printf(" + (%s) X ^ ", output);
+				else
+					printf(" + (%s) X ^ ", output);
 			}
 
 			free(output);

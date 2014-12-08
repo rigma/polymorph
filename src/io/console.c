@@ -5,22 +5,33 @@
 #include <io/buffer.h>
 #include <io/console.h>
 #include <io/commands.h>
+#include <utils.h>
 
 token_t getToken(char *str)
 {
-	char *input = strtok(str, " ");
+	char **table = NULL;
+	size_t i = 0, size = 0;
 	token_t result = TOK_OTHER;
 
-	if (!strcmp(input, DIFF))
+	table = split(str, ' ', &size);
+
+	if (!strcmp(table[0], DIFF))
 		result = TOK_DIFF;
-	else if (!strcmp(input, INT))
-		result = TOK_INT;
-	else if (!strcmp(input, EXIT))
+	else if (!strcmp(table[0], INTEGRATE))
+		result = TOK_INTEGRATE;
+	else if (!strcmp(table[0], EXIT))
 		result = TOK_EXIT;
-	else if (!strcmp(input, HELP))
+	else if (!strcmp(table[0], HELP))
 		result = TOK_HELP;
-	else if (!strcmp(input, DEFINE))
+	else if (!strcmp(table[0], DEFINE))
 		result = TOK_DEFINE;
+	else if (!strcmp(table[0], DISPLAY))
+		result = TOK_DISPLAY;
+
+	for (i = 0; i < size; i++)
+		free(table[i]);
+
+	free(table);
 
 	return result;
 }
@@ -30,7 +41,7 @@ void console_start(const char *msg)
 	FILE *f = NULL;
 	buffer_t *buffer = NULL;
 	entry_t *polynomials = NULL;
-	char *input = NULL, *str = NULL;
+	char **table = NULL, *input = NULL;
 	char run = 0, c = 0;
 
 	f = fopen(msg, "r");
@@ -62,11 +73,8 @@ void console_start(const char *msg)
 	{
 		buffer_read(buffer, 0, ">> ");
 		input = buffer_get(buffer);
-		
-		str = (char*) malloc(sizeof(input) * sizeof(char));
-		strcpy(str, input);
 
-		switch (getToken(str))
+		switch (getToken(input))
 		{
 		case TOK_EXIT:
 			run = 0;
@@ -76,11 +84,20 @@ void console_start(const char *msg)
 			printf("%s\n", input);
 			break;
 
+		case TOK_DISPLAY:
+			display(polynomials, input);
+			break;
+
 		case TOK_DEFINE:
-			free(input);
-			
-			input = strtok(NULL, " ");
 			define(buffer, &polynomials, input);
+			break;
+
+		case TOK_DIFF:
+			diff(&polynomials, input);
+			break;
+
+		case TOK_INTEGRATE:
+			integrate(&polynomials, input);
 			break;
 
 		default:
@@ -88,5 +105,6 @@ void console_start(const char *msg)
 		}
 	}
 
+	entry_free(&polynomials);
 	buffer_free(buffer);
 }

@@ -28,7 +28,7 @@ void entry_free(entry_t **list)
 
 void entry_add(entry_t **list, void *polynomial, unsigned char type)
 {
-	entry_t *iterator = NULL;
+	entry_t *iterator = NULL, *previous = NULL;
 
 	if (polynomial == NULL)
 		return;
@@ -45,21 +45,42 @@ void entry_add(entry_t **list, void *polynomial, unsigned char type)
 	}
 	else
 	{
+		previous = NULL;
 		iterator = *list;
-		while (iterator->next != NULL)
+		while (iterator != NULL)
+		{
+			if (type == POLYNOMIAL && !strcmp(((polynomial_t*) iterator->polynomial)->name, ((polynomial_t*) polynomial)->name))
+				break;
+			else if (type == POLYMORPH && !strcmp(((polymorph_t*) iterator->polynomial)->name, ((polymorph_t*) polynomial)->name))
+				break;
+
+			previous = iterator;
 			iterator = iterator->next;
+		}
+		
+		if (iterator != NULL)
+		{
+			if (iterator->type == POLYNOMIAL)
+				polynomial_free((polynomial_t*) iterator->polynomial);
+			else if (iterator->type == POLYMORPH)
+				polymorph_free((polymorph_t*) iterator->polynomial);
 
-		iterator->next = (entry_t*)malloc(sizeof(entry_t));
-		if (iterator->next == NULL)
-			return;
+			iterator->polynomial = polynomial;
+		}
+		else
+		{
+			previous->next = (entry_t*) malloc(sizeof(entry_t));
+			if (previous->next == NULL)
+				return;
 
-		iterator->next->polynomial = polynomial;
-		iterator->next->type = type;
-		iterator->next->next = NULL;
+			previous->next->polynomial = polynomial;
+			previous->next->type = type;
+			previous->next->next = NULL;
+		}
 	}
 }
 
-void entry_remove(entry_t **list, const char *name)
+void entry_remove(entry_t **list, char *name)
 {
 	entry_t *previous = NULL, *iterator = NULL;
 
@@ -93,7 +114,7 @@ void entry_remove(entry_t **list, const char *name)
 	free(iterator);
 }
 
-entry_t *entry_get(entry_t *list, const char *name)
+entry_t *entry_get(entry_t *list, char *name)
 {
 	while (list != NULL)
 	{

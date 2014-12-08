@@ -5,14 +5,44 @@
 #include "manager.h"
 
 /**
- * @fn     define(buffer_t *buffer, entry_t **list, const char *name)
+ * @fn     define(buffer_t *buffer, entry_t **list, char *args)
  * @author Romain Failla | Etienne Quelain
  * @brief  Défini un nouveau polynôme en mémoire
  * @param  buffer_t *buffer : le buffer d'E/S
- * @param  entry_t **list : la liste des polynôme défini en mémoire
- * @param  const char *name : le nom du polynôme
+ * @param  entry_t **list : la liste des polynômes définis en mémoire
+ * @param  char *args : les arguments de la commande
  * @return int
  */
-int define(buffer_t *buffer, entry_t **list, const char *name);
+int define(buffer_t *buffer, entry_t **list, char *args);
+
+/**
+ * @fn      display(entry_t *list, char *args)
+ * @author  Romain Failla
+ * @brief   Affiche le polynôme demandé
+ * @param   entry_t *list : la liste des polynômes définis en mémoire
+ * @param   char *args : les arguments de la commande
+ * @return  int
+ */
+int display(entry_t *list, char *args);
+
+/**
+ * @fn      diff(entry_t **list, char *args)
+ * @author  Romain Failla
+ * @brief   Réalise, affiche et enregistre la dérivée d'un polynôme donné
+ * @param   entry_t **list : la liste des polynômes définis en mémoire
+ * @param   char *args : les arguments de la commande
+ * @return  int
+ */
+int diff(entry_t **list, char *args);
+
+/**
+ * @fn      integrate(entry_t **list, char *args)
+ * @author  Romain Failla
+ * @brief   Réalise, affiche et enregistre la primitive d'un polynôme donné !
+ * @param   entry_t **list : la liste des polynômes définis en mémoire
+ * @param   char *args : les arguments de la commande
+ * @return  int
+ */
+int integrate(entry_t **list, char *args);
 
 #endif

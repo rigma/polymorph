@@ -29,6 +29,9 @@
     <ClCompile Include="src\arithmetic.c" />
     <ClCompile Include="src\io\buffer.c" />
     <ClCompile Include="src\io\commands\define.c" />
+    <ClCompile Include="src\io\commands\diff.c" />
+    <ClCompile Include="src\io\commands\display.c" />
+    <ClCompile Include="src\io\commands\integrate.c" />
     <ClCompile Include="src\io\console.c" />
     <ClCompile Include="src\io\manager.c" />
     <ClCompile Include="src\type\complex.c" />

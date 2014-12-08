@@ -60,6 +60,9 @@ polynomial_t *polynomial_integrate(polynomial_t *p, complex_t *c)
 	for (iterator = p->first ; iterator != NULL ; iterator = iterator = iterator->next)
 		polynomial_append(q, complex_scalarProd(1.0 / (iterator->degree + 1), iterator->coef), iterator->degree + 1);
 
+	if (c != NULL)
+		polynomial_append(q, c, 0);
+
 	return q;
 }
 

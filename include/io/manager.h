@@ -37,22 +37,22 @@ void entry_free(entry_t **list);
 void entry_add(entry_t **list, void *polynomial, unsigned char type);
 
 /**
- * @fn     entry_remove(entry_t **list, const char *name)
+ * @fn     entry_remove(entry_t **list, char *name)
  * @author Romain Failla
  * @brief  Enlève une entrée de la liste en fonction du nom de polynôme
  * @param  entry_t **list : la liste du gestionnaire
- * @param  const char *name : le polynôme à enlever
+ * @param  char *name : le polynôme à enlever
  */
-void entry_remove(entry_t **list, const char *name);
+void entry_remove(entry_t **list, char *name);
 
 /**
- * @fn     entry_get(entry_t *list, const char *name)
+ * @fn     entry_get(entry_t *list, char *name)
  * @author Romain Failla
  * @brief  Renvoie une entrée de la liste en fonction du nom de polynôme
  * @param  entry_t *list : la liste du gestionnaire
- * @param  const char *name : le nom du polynôme à récupérer
+ * @param  char *name : le nom du polynôme à récupérer
  * @return entry_t*
  */
-entry_t *entry_get(entry_t *list, const char *name);
+entry_t *entry_get(entry_t *list, char *name);
 
 #endif
