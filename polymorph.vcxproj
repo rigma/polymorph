@@ -32,6 +32,8 @@
     <ClCompile Include="src\io\commands\diff.c" />
     <ClCompile Include="src\io\commands\display.c" />
     <ClCompile Include="src\io\commands\integrate.c" />
+    <ClCompile Include="src\io\commands\parts.c" />
+    <ClCompile Include="src\io\commands\unset.c" />
     <ClCompile Include="src\io\console.c" />
     <ClCompile Include="src\io\manager.c" />
     <ClCompile Include="src\type\complex.c" />

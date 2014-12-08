@@ -122,6 +122,8 @@ entry_t *entry_get(entry_t *list, char *name)
 			return list;
 		else if (list->type == POLYMORPH && !strcmp(name, ((polymorph_t*) list->polynomial)->name))
 			return list;
+
+		list = list->next;
 	}
 
 	return NULL;

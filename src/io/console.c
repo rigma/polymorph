@@ -19,12 +19,18 @@ token_t getToken(char *str)
 		result = TOK_DIFF;
 	else if (!strcmp(table[0], INTEGRATE))
 		result = TOK_INTEGRATE;
+	else if (!strcmp(table[0], RE))
+		result = TOK_RE;
+	else if (!strcmp(table[0], IM))
+		result = TOK_IM;
 	else if (!strcmp(table[0], EXIT))
 		result = TOK_EXIT;
 	else if (!strcmp(table[0], HELP))
 		result = TOK_HELP;
 	else if (!strcmp(table[0], DEFINE))
 		result = TOK_DEFINE;
+	else if (!strcmp(table[0], UNSET))
+		result = TOK_UNSET;
 	else if (!strcmp(table[0], DISPLAY))
 		result = TOK_DISPLAY;
 
@@ -76,6 +82,22 @@ void console_start(const char *msg)
 
 		switch (getToken(input))
 		{
+		case TOK_DIFF:
+			diff(&polynomials, input);
+			break;
+
+		case TOK_INTEGRATE:
+			integrate(&polynomials, input);
+			break;
+
+		case TOK_RE:
+			re(&polynomials, input);
+			break;
+
+		case TOK_IM:
+			im(&polynomials, input);
+			break;
+
 		case TOK_EXIT:
 			run = 0;
 			break;
@@ -91,13 +113,9 @@ void console_start(const char *msg)
 		case TOK_DEFINE:
 			define(buffer, &polynomials, input);
 			break;
-
-		case TOK_DIFF:
-			diff(&polynomials, input);
-			break;
-
-		case TOK_INTEGRATE:
-			integrate(&polynomials, input);
+			
+		case TOK_UNSET:
+			unset(&polynomials, input);
 			break;
 
 		default:

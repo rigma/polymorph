@@ -305,10 +305,10 @@ polynomial_t *polynomial_extractReal(polynomial_t *p)
 	if (q == NULL)
 		return NULL;
 
-	name = (char*) malloc((sizeof(char) + 3) * sizeof(char));
+	name = (char*) malloc((sizeof(char) + 4) * sizeof(char));
 	if (name != NULL)
 	{
-		strcpy(name, "Re ");
+		strcpy(name, "Re_");
 		strcat(name, p->name);
 		
 		q->name = name;
@@ -333,10 +333,10 @@ polynomial_t *polynomial_extractImaginary(polynomial_t *p)
 	if (q == NULL)
 		return NULL;
 
-	name = (char*)malloc((sizeof(char) + 3) * sizeof(char));
+	name = (char*) malloc((sizeof(char) + 4) * sizeof(char));
 	if (name != NULL)
 	{
-		strcpy(name, "Im ");
+		strcpy(name, "Im_");
 		strcat(name, p->name);
 
 		q->name = name;

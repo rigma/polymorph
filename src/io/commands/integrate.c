@@ -22,9 +22,7 @@ int integrate(entry_t **list, char *args)
 	{
 		if (table != NULL)
 		{
-			for (i = 0; i < size; i++)
-				free(table[i]);
-
+			free(*table);
 			free(table);
 		}
 
@@ -32,7 +30,7 @@ int integrate(entry_t **list, char *args)
 	}
 
 	e = entry_get(*list, table[1]);
-	if (e == NULL)
+	if (e == NULL || e->type != POLYNOMIAL)
 	{
 		for (i = 0; i < size; i++)
 			free(table[i]);
@@ -42,7 +40,6 @@ int integrate(entry_t **list, char *args)
 		return EXIT_FAILURE;
 	}
 
-	p = (polynomial_t*) e->polynomial;
 	if (size > 2)
 	{
 		c = args;
@@ -65,10 +62,10 @@ int integrate(entry_t **list, char *args)
 			return EXIT_FAILURE;
 		}
 
-		q = polynomial_integrate(p, z);
+		q = polynomial_integrate((polynomial_t*) e->polynomial, z);
 	}
 	else
-		q = polynomial_integrate(p, NULL);
+		q = polynomial_integrate((polynomial_t*) e->polynomial, NULL);
 
 	if (q == NULL)
 	{

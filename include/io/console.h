@@ -8,6 +8,7 @@
 #define EXIT      "exit"
 #define HELP      "help"
 #define DEFINE    "define"
+#define UNSET     "unset"
 #define DISPLAY   "display"
 #define EQUAL     "="
 #define PLUS      "+"
@@ -22,13 +23,14 @@
  * @brief  Représente un mot clé de l'invité de commande
  */
 typedef enum {
-	TOK_DIFF = 13,
-	TOK_INTEGRATE = 12,
-	TOK_RE = 11,
-	TOK_IM = 10,
-	TOK_EXIT = 9,
-	TOK_HELP = 8,
-	TOK_DEFINE = 7,
+	TOK_DIFF = 14,
+	TOK_INTEGRATE = 13,
+	TOK_RE = 12,
+	TOK_IM = 11,
+	TOK_EXIT = 10,
+	TOK_HELP = 9,
+	TOK_DEFINE = 8,
+	TOK_UNSET = 7,
 	TOK_DISPLAY = 6,
 	TOK_EQUAL = 5,
 	TOK_PLUS = 4,
