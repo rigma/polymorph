@@ -23,11 +23,11 @@ token_t getToken(char *str)
 		result = TOK_RE;
 	else if (!strcmp(table[0], IM))
 		result = TOK_IM;
-	else if (!strcmp(table[0], EXIT))
+	else if (!strcmp(table[0], EXIT) || !strcmp(table[0], "bye") || !strcmp(table[0], "quit"))
 		result = TOK_EXIT;
 	else if (!strcmp(table[0], HELP))
 		result = TOK_HELP;
-	else if (!strcmp(table[0], DEFINE))
+	else if (!strcmp(table[0], DEFINE) || !strcmp(table[0], "set"))
 		result = TOK_DEFINE;
 	else if (!strcmp(table[0], UNSET))
 		result = TOK_UNSET;
@@ -48,7 +48,7 @@ void console_start(const char *msg)
 	buffer_t *buffer = NULL;
 	entry_t *polynomials = NULL;
 	char **table = NULL, *input = NULL;
-	char run = 0, c = 0;
+	char run = 0, code = 0, c = 0;
 
 	f = fopen(msg, "r");
 	if (f == NULL)
@@ -83,19 +83,19 @@ void console_start(const char *msg)
 		switch (getToken(input))
 		{
 		case TOK_DIFF:
-			diff(&polynomials, input);
+			code = diff(&polynomials, input);
 			break;
 
 		case TOK_INTEGRATE:
-			integrate(&polynomials, input);
+			code = integrate(&polynomials, input);
 			break;
 
 		case TOK_RE:
-			re(&polynomials, input);
+			code = re(&polynomials, input);
 			break;
 
 		case TOK_IM:
-			im(&polynomials, input);
+			code = im(&polynomials, input);
 			break;
 
 		case TOK_EXIT:
@@ -107,20 +107,23 @@ void console_start(const char *msg)
 			break;
 
 		case TOK_DISPLAY:
-			display(polynomials, input);
+			code = display(polynomials, input);
 			break;
 
 		case TOK_DEFINE:
-			define(buffer, &polynomials, input);
+			code = define(buffer, &polynomials, input);
 			break;
 			
 		case TOK_UNSET:
-			unset(&polynomials, input);
+			code = unset(&polynomials, input);
 			break;
 
 		default:
-			printf("YOLO !\n");
+			code = expr(&polynomials, input);
 		}
+
+		if (code == EXIT_FAILURE && run)
+			printf("Erreur ! La commande ne s'est executee correctement.\n");
 	}
 
 	entry_free(&polynomials);

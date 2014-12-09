@@ -52,7 +52,7 @@ int re(entry_t **list, char *args)
 	if (re->size > 0)
 	{
 		polynomial_display(re);
-		printf("\n");
+		fprintf(stdout, "\n");
 
 		entry_add(list, (void*) re, POLYNOMIAL);
 	}
@@ -114,7 +114,7 @@ int im(entry_t **list, char *args)
 	if (im->size > 0)
 	{
 		polynomial_display(im);
-		printf("\n");
+		fprintf(stdout, "\n");
 
 		entry_add(list, (void*) im, POLYNOMIAL);
 	}

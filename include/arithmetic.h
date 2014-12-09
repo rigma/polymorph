@@ -2,6 +2,7 @@
 #define ARITHMETIC_H
 
 #include "type/polynomial.h"
+#include "io/manager.h"
 
 /**
  * @fn     polynomial_sum(polynomial_t *p, polynomial_t *q)
@@ -56,5 +57,16 @@ polynomial_t *polynomial_prod(polynomial_t *p, polynomial_t *q, const char *name
  * @return polynomial_t*
  */
 polynomial_t *polynomial_pow(polynomial_t *p, long n);
+
+/**
+ * @fn     polynomial_interpreter(void *result, entry_t *list, char *str)
+ * @author Romain Failla
+ * @brief  Interprète la chaîne de caractère comme une expression avec des polynômes
+ * @param  void *result : l'adresse du stockage du résultat
+ * @param  entry_t *list : la liste des polynômes définis en mémoire
+ * @param  char *str : la chaîne de caractères à interpréter
+ * @return int : retourne 1 si c'est un complexe, 0 sinon
+ */
+int polynomial_interpreter(void *result, entry_t *list, char *str);
 
 #endif

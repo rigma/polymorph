@@ -241,8 +241,12 @@ void polynomial_append(polynomial_t *p, complex_t *coef, unsigned long degree)
 	if (p == NULL || coef == NULL)
 		return;
 
-    if (coef->re == 0.0 && coef->im == 0.0)
-        return;
+	if (coef->re == 0.0 && coef->im == 0.0)
+	{
+		complex_free(coef);
+
+		return;
+	}
 
 	// On alloue en mémoire le monôme à ajouter
 	m = monomial_init(coef, degree);
@@ -305,7 +309,7 @@ polynomial_t *polynomial_extractReal(polynomial_t *p)
 	if (q == NULL)
 		return NULL;
 
-	name = (char*) malloc((sizeof(char) + 4) * sizeof(char));
+	name = (char*) malloc((sizeof(p->name) + 3) * sizeof(char));
 	if (name != NULL)
 	{
 		strcpy(name, "Re_");
@@ -333,7 +337,7 @@ polynomial_t *polynomial_extractImaginary(polynomial_t *p)
 	if (q == NULL)
 		return NULL;
 
-	name = (char*) malloc((sizeof(char) + 4) * sizeof(char));
+	name = (char*) malloc((sizeof(p->name) + 3) * sizeof(char));
 	if (name != NULL)
 	{
 		strcpy(name, "Im_");

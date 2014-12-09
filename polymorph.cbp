@@ -36,12 +36,15 @@
 		<Unit filename="include/analysis.h" />
 		<Unit filename="include/arithmetic.h" />
 		<Unit filename="include/io/buffer.h" />
+		<Unit filename="include/io/commands.h" />
 		<Unit filename="include/io/console.h" />
+		<Unit filename="include/io/manager.h" />
 		<Unit filename="include/type/complex.h" />
 		<Unit filename="include/type/monomial.h" />
 		<Unit filename="include/type/polymorph.h" />
 		<Unit filename="include/type/polynomial.h" />
 		<Unit filename="include/type/polynomial_table.h" />
+		<Unit filename="include/utils.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -54,7 +57,31 @@
 		<Unit filename="src/io/buffer.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src/io/commands/define.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/io/commands/diff.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/io/commands/display.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/io/commands/expr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/io/commands/integrate.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/io/commands/parts.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/io/commands/unset.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/io/console.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/io/manager.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/type/complex.c">
@@ -69,7 +96,7 @@
 		<Unit filename="src/type/polynomial.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="src/type/polynomial_table.c">
+		<Unit filename="src/utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

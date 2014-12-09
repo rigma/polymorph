@@ -41,10 +41,18 @@ int diff(entry_t **list, char *args)
 
 	q = polynomial_differentiate((polynomial_t*) e->polynomial);
 
-	polynomial_display(q);
-	printf("\n");
+	if (q->size > 0)
+	{
+		polynomial_display(q);
+		fprintf(stdout, "\n");
 
-	entry_add(list, (void*) q, POLYNOMIAL);
+		entry_add(list, (void*)q, POLYNOMIAL);
+	}
+	else
+	{
+		fprintf(stdout, "%s(X) = 0\n", q->name);
+		polynomial_free(q);
+	}
 
 	for (i = 0; i < size; i++)
 		free(table[i]);

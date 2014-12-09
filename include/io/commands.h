@@ -75,4 +75,14 @@ int diff(entry_t **list, char *args);
  */
 int integrate(entry_t **list, char *args);
 
+/**
+ * @fn      expr(entry_t **list, char *args)
+ * @author  Romain Failla
+ * @brief   Analyse une expression formelle
+ * @param   entry_t **list : la liste des polynômes définis en mémoire
+ * @param   char *args : les arguments de la commande
+ * @return  int
+ */
+int expr(entry_t **list, char *args);
+
 #endif

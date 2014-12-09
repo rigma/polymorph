@@ -42,11 +42,11 @@ int define(buffer_t *buffer, entry_t **list, char *args)
 	while (run)
 	{
 		if (p->size == 0)
-			printf("%s(X) = ", p->name);
+			fprintf(stdout, "%s(X) = ", p->name);
 		else
 		{
 			polynomial_display(p);
-			printf(" + ");
+			fprintf(stdout, " + ");
 		}
 
 		buffer_read(buffer, 0, NULL);
@@ -61,18 +61,18 @@ int define(buffer_t *buffer, entry_t **list, char *args)
 			if (p->size == 0)
 			{
 				if (z->re != 0.0 && z->im != 0.0)
-					printf("%s(X) = (%s) X ^ ", p->name, output);
+					fprintf(stdout, "%s(X) = (%s) X ^ ", p->name, output);
 				else
-					printf("%s(X) = %s X ^ ", p->name, output);
+					fprintf(stdout, "%s(X) = %s X ^ ", p->name, output);
 			}
 			else
 			{
 				polynomial_display(p);
 
 				if (z->re != 0.0 && z->im != 0.0)
-					printf(" + (%s) X ^ ", output);
+					fprintf(stdout, " + (%s) X ^ ", output);
 				else
-					printf(" + (%s) X ^ ", output);
+					fprintf(stdout, " + (%s) X ^ ", output);
 			}
 
 			free(output);

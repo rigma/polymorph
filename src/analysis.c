@@ -20,7 +20,7 @@ polynomial_t *polynomial_differentiate(polynomial_t *p)
 	if (q == NULL)
 		return NULL;
 
-	name = (char*) malloc((sizeof(p->name) + 1) * sizeof(char));
+	name = (char*) malloc((sizeof(p->name) + 2) * sizeof(char));
 	if (name != NULL)
 	{
 		strcpy(name, p->name);
@@ -48,7 +48,7 @@ polynomial_t *polynomial_integrate(polynomial_t *p, complex_t *c)
 	if (q == NULL)
 		return NULL;
 
-	name = (char*) malloc((sizeof(p->name) + 1) * sizeof(char));
+	name = (char*) malloc((sizeof(p->name) + 2) * sizeof(char));
 	if (name != NULL)
 	{
 		strcpy(name, p->name);

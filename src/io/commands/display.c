@@ -39,7 +39,7 @@ int display(entry_t *list, char *args)
 			polymorph_display((polymorph_t*) p->polynomial); */
 	}
 
-	printf("\n");
+	fprintf(stdout, "\n");
 
 	for (i = 0; i < size; i++)
 		free(table[i]);

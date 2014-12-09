@@ -159,7 +159,7 @@ polynomial_t *polynomial_diff(polynomial_t *p, polynomial_t *q, const char *name
 		r = polynomial_sum(p, tmp, name);
 	else if (p->name != NULL && q->name != NULL)
 	{
-		str = (char*) malloc((sizeof(p->name) + sizeof(q->name) + 6) * sizeof(char));
+		str = (char*) malloc((sizeof(p->name) + sizeof(q->name) + 4) * sizeof(char));
 		if (str == NULL)
 			r = polynomial_sum(p, tmp, NULL);
 		else
@@ -197,16 +197,13 @@ polynomial_t *polynomial_scalarProduct(complex_t *k, polynomial_t *p, const char
 	// On initialise le polynôme résultant
 	if (name != NULL)
 		r = polynomial_init(name);
-	else if (p->name != NULL)
+	/*else if (p->name != NULL)
 	{
 		z = complex_toString(k, 0);
 		if (z == NULL)
 			return NULL;
 
-		if (k->re != 0.0 && k->im != 0.0)
-			str = (char*) malloc((sizeof(p->name) + sizeof(z) + 8) * sizeof(char));
-		else
-			str = (char*) malloc((sizeof(p->name) + sizeof(z) + 6) * sizeof(char));
+		str = (char*) malloc((sizeof(p->name) + sizeof(z) + 4) * sizeof(char));
 		
 		if (str == NULL)
 			return NULL;
@@ -220,7 +217,8 @@ polynomial_t *polynomial_scalarProduct(complex_t *k, polynomial_t *p, const char
 		z = NULL;
 
 		r = polynomial_init(str);
-	}
+		free(str);
+	}*/
 	else
 		r = polynomial_init(NULL);
 
@@ -687,4 +685,28 @@ polynomial_t *polynomial_pow(polynomial_t *p, long n)
 	}
 
 	return q;
+}
+
+int polynomial_interpreter(void *result, entry_t *list, char *str)
+{
+	char **table = NULL, *op = NULL;
+	void *r = NULL, *next = NULL;
+	size_t size = 0, i = 0;
+
+	if (result == NULL || list == NULL || str == NULL)
+		return 0;
+
+	while (op == NULL && i < 3)
+	{
+		if (i == 0)
+			op = strchr(str, '*');
+		else if (i == 1)
+			op = strchr(str, '+');
+		else if (i == 2)
+			op = strchr(str, '-');
+
+		i++;
+	}
+
+	return 0;
 }

@@ -81,7 +81,7 @@ int integrate(entry_t **list, char *args)
 	}
 
 	polynomial_display(q);
-	printf("\n");
+	fprintf(stdout, "\n");
 
 	entry_add(list, (void*) q, POLYNOMIAL);
 
