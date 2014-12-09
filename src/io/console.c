@@ -47,7 +47,7 @@ void console_start(const char *msg)
 	FILE *f = NULL;
 	buffer_t *buffer = NULL;
 	entry_t *polynomials = NULL;
-	char **table = NULL, *input = NULL;
+	char *input = NULL;
 	char run = 0, code = 0, c = 0;
 
 	f = fopen(msg, "r");

@@ -10,7 +10,7 @@ int integrate(entry_t **list, char *args)
 {
 	complex_t *z = NULL;
 	entry_t *e = NULL;
-	polynomial_t *p = NULL, *q = NULL;
+	polynomial_t *q = NULL;
 	size_t size = 0, i = 0;
 	char **table = NULL, *c = NULL, count = 0;
 
