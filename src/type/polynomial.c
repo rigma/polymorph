@@ -191,6 +191,8 @@ void polynomial_insert(polynomial_t *p, monomial_t *m)
 		p->first = m;
 		p->last = m;
 		p->degree = m->degree;
+
+		p->size++;
 	}
 	else if (current == NULL) // Si on se trouve à la fin du polynôme
 	{
@@ -198,6 +200,8 @@ void polynomial_insert(polynomial_t *p, monomial_t *m)
 		m->previous = p->last;
 		m->previous->next = m;
 		p->last = m;
+
+		p->size++;
 	}
 	else if (current->degree == m->degree) // Si on est dans le polynôme et que le monôme courant à le même degré
 	{
@@ -208,6 +212,10 @@ void polynomial_insert(polynomial_t *p, monomial_t *m)
 
 		complex_free(current->coef);
 		current->coef = tmp;
+
+		// Si notre monôme a un coefficient nul
+		if (current->coef->mod == 0.0)
+			polynomial_remove(p, current->degree);
 
 		// Et on libère le monôme à insérer pour n'en garder qu'un
 		monomial_free(m);
@@ -228,9 +236,9 @@ void polynomial_insert(polynomial_t *p, monomial_t *m)
 		// Si le monôme inséré a le plus grand degré
 		if (m->degree > p->degree)
 			p->degree = m->degree;
-	}
 
-	p->size++;
+		p->size++;
+	}
 }
 
 void polynomial_append(polynomial_t *p, complex_t *coef, unsigned long degree)

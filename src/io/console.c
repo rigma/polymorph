@@ -64,13 +64,13 @@ void console_start(const char *msg)
 		fclose(f);
 		f = NULL;
 
-		printf("\n\n");
+		fprintf(stdout, "\n\n");
 	}
 
 	buffer = buffer_init(0);
 	if (buffer == NULL)
 	{
-		printf("ERREUR : impossible d'initialiser le buffer d'E/S ! Fermeture de l'application.\n");
+		fprintf(stdout, "ERREUR : impossible d'initialiser le buffer d'E/S ! Fermeture de l'application.\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -103,7 +103,22 @@ void console_start(const char *msg)
 			break;
 
 		case TOK_HELP:
-			printf("%s\n", input);
+			f = fopen(msg, "r");
+			if (f == NULL)
+				fprintf(stdout, "L'aide n'est pas disponible...\n");
+			else
+			{
+				do
+				{
+					c = fgetc(f);
+					fputc(c, stdout);
+				} while (c != EOF);
+
+				fclose(f);
+				f = NULL;
+
+				fprintf(stdout, "\n");
+			}
 			break;
 
 		case TOK_DISPLAY:

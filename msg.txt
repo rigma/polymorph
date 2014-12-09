@@ -1,0 +1,29 @@
+######### Bienvenue dans polymorph ! #########
+
+polymorph est un calculateur formel de
+polynomes a coefficients dans C[X].
+Il vous permet de definir ces derniers,
+d'effectuer des operations sur ces derniers,
+de les evaluer en un point du plan C et de
+les afficher.
+
+
+Pour utiliser ces fonctionnalites, vous devez
+utiliser une des commandes suivantes :
+
+ * define ou set <nom> : définir un polynome
+ * unset nom : libère le polynome "nom"
+ * diff nom : dérive le polynome "nom"
+ * int nom [z] : recherche une primitive du
+                 polynome "nom" avec la
+                 constante "z" si elle est
+                 renseignee (par defaut,
+                 elle vaut 0)
+ * re nom : extrait la partie reelle du 
+            polynome "nom"
+ * im nom : extrait la partie imaginaire du
+            polynome "nom"
+ * help : affiche ce joli message :)
+ * exit : met fin au programme
+
+############ Bonne continuation ! ############

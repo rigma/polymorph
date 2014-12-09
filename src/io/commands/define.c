@@ -17,15 +17,20 @@ int define(buffer_t *buffer, entry_t **list, char *args)
 	if (buffer == NULL)
 		return EXIT_FAILURE;
 
-	if (args == NULL)
+	table = split(args, ' ', &size);
+	if (table == NULL)
+		return EXIT_FAILURE;
+
+	if (size == 1)
 	{
-		buffer_read(buffer, 0, "Entrez le nom de vôtre polynôme : ");
+		buffer_read(buffer, 0, "Entrez le nom de votre polynome : ");
 		name = buffer_get(buffer);
+
+		free(*table);
+		free(table);
 	}
 	else
 	{
-		table = split(args, ' ', &size);
-
 		name = (char*) malloc(sizeof(table[1]) * sizeof(char));
 		strcpy(name, table[1]);
 

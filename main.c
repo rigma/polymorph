@@ -13,8 +13,7 @@ void test();
 int main(int argc, char **argv)
 {
 	console_start("msg.txt");
-	test();
-
+	
 	return EXIT_SUCCESS;
 }
 
